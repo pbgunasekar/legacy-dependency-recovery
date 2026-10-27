@@ -23,7 +23,10 @@ def grouped(ax, groups, series, values, ylim=(0, 1.05), fmt="{:.2f}"):
         xs = [g + (i - (n - 1) / 2) * w for g in range(len(groups))]
         bars = ax.bar(xs, values[i], w * 0.92, color=C[i], label=s, edgecolor="white", linewidth=0.8)
         for x, v in zip(xs, values[i]):
-            ax.text(x, v + 0.012, fmt.format(v), ha="center", va="bottom", fontsize=6.5, color=MUTED)
+            lab = fmt.format(v)
+            if lab.startswith("0."): lab = lab[1:]          # ".90" keeps labels from colliding
+            ax.text(x, v + 0.012, lab, ha="center", va="bottom",
+                    fontsize=6.5 if len(groups) <= 4 else 5.5, color=MUTED)
     ax.set_xticks(range(len(groups))); ax.set_xticklabels(groups); ax.set_ylim(*ylim)
 
 # Fig A: detection F1 across all schema sets

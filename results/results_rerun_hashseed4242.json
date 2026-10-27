@@ -34,7 +34,7 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.00013287000001582783
+     "secs": 0.00014213999997991777
     },
     "Data-only (IND)": {
      "P": 1.0,
@@ -43,7 +43,7 @@
      "TP": 7,
      "FP": 0,
      "FN": 4,
-     "secs": 0.018488459000082003
+     "secs": 0.01947366499985037
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -52,7 +52,7 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.0033288780000475526
+     "secs": 0.0028856579999683163
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -61,7 +61,7 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.0033117079999556154
+     "secs": 0.004370454999843787
     }
    },
    "missed_by_proposed": [
@@ -139,7 +139,7 @@
      "TP": 11,
      "FP": 0,
      "FN": 2,
-     "secs": 0.00019447399995442538
+     "secs": 0.00016566099998271966
     },
     "Data-only (IND)": {
      "P": 0.8333333333333334,
@@ -148,7 +148,7 @@
      "TP": 10,
      "FP": 2,
      "FN": 3,
-     "secs": 0.022430004999932862
+     "secs": 0.021758047000048464
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -157,7 +157,7 @@
      "TP": 12,
      "FP": 0,
      "FN": 1,
-     "secs": 0.0023501139999098086
+     "secs": 0.0018611170000895072
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -166,7 +166,7 @@
      "TP": 12,
      "FP": 0,
      "FN": 1,
-     "secs": 0.002508395999939239
+     "secs": 0.001992005999909452
     }
    },
    "missed_by_proposed": [
@@ -238,7 +238,7 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.00025966699990931374
+     "secs": 0.00023016199997982767
     },
     "Data-only (IND)": {
      "P": 0.7894736842105263,
@@ -247,7 +247,7 @@
      "TP": 15,
      "FP": 4,
      "FN": 7,
-     "secs": 0.03709432799996648
+     "secs": 0.03681764399993881
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -256,7 +256,7 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.008058043999881193
+     "secs": 0.007223780000003899
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -265,7 +265,7 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.008048656000028132
+     "secs": 0.007036519999928714
     }
    },
    "missed_by_proposed": [],
@@ -316,10 +316,266 @@
     "mean_Is": 0.19140625,
     "max_Is": 0.5
    }
+  },
+  "TPC-DS": {
+   "tables": 24,
+   "columns": 425,
+   "rows": 2596789,
+   "true_deps": 102,
+   "detection": {
+    "Name-only": {
+     "P": 1.0,
+     "R": 0.16666666666666666,
+     "F1": 0.2857142857142857,
+     "TP": 17,
+     "FP": 0,
+     "FN": 85,
+     "secs": 0.000759823999942455
+    },
+    "Data-only (IND)": {
+     "P": 0.7528089887640449,
+     "R": 0.6568627450980392,
+     "F1": 0.7015706806282722,
+     "TP": 67,
+     "FP": 22,
+     "FN": 35,
+     "secs": 9.374955962000058
+    },
+    "Fixed-weight fusion": {
+     "P": 0.9358974358974359,
+     "R": 0.7156862745098039,
+     "F1": 0.8111111111111112,
+     "TP": 73,
+     "FP": 5,
+     "FN": 29,
+     "secs": 0.09306008600015048
+    },
+    "Proposed (adaptive)": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "TP": 87,
+     "FP": 12,
+     "FN": 15,
+     "secs": 0.09112484599995696
+    }
+   },
+   "missed_by_proposed": [
+    [
+     "catalog_returns",
+     "cr_refunded_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "catalog_returns",
+     "cr_refunded_hdemo_sk",
+     "household_demographics",
+     "hd_demo_sk"
+    ],
+    [
+     "catalog_returns",
+     "cr_returning_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "catalog_returns",
+     "cr_returning_hdemo_sk",
+     "household_demographics",
+     "hd_demo_sk"
+    ],
+    [
+     "customer",
+     "c_current_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "promotion",
+     "p_item_sk",
+     "item",
+     "i_item_sk"
+    ],
+    [
+     "store_returns",
+     "sr_return_time_sk",
+     "time_dim",
+     "t_time_sk"
+    ],
+    [
+     "web_returns",
+     "wr_refunded_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "web_returns",
+     "wr_refunded_hdemo_sk",
+     "household_demographics",
+     "hd_demo_sk"
+    ],
+    [
+     "web_returns",
+     "wr_returned_time_sk",
+     "time_dim",
+     "t_time_sk"
+    ],
+    [
+     "web_returns",
+     "wr_returning_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "web_returns",
+     "wr_returning_customer_sk",
+     "customer",
+     "c_customer_sk"
+    ],
+    [
+     "web_returns",
+     "wr_returning_hdemo_sk",
+     "household_demographics",
+     "hd_demo_sk"
+    ],
+    [
+     "web_sales",
+     "ws_bill_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ],
+    [
+     "web_sales",
+     "ws_ship_addr_sk",
+     "customer_address",
+     "ca_address_sk"
+    ]
+   ],
+   "fp_by_proposed": [
+    [
+     "customer",
+     "c_last_review_date_sk",
+     "date_dim",
+     "d_date_sk"
+    ],
+    [
+     "date_dim",
+     "d_first_dom",
+     "date_dim",
+     "d_date_sk"
+    ],
+    [
+     "date_dim",
+     "d_last_dom",
+     "date_dim",
+     "d_date_sk"
+    ],
+    [
+     "date_dim",
+     "d_same_day_lq",
+     "date_dim",
+     "d_date_sk"
+    ],
+    [
+     "date_dim",
+     "d_same_day_ly",
+     "date_dim",
+     "d_date_sk"
+    ],
+    [
+     "income_band",
+     "ib_lower_bound",
+     "customer_demographics",
+     "cd_demo_sk"
+    ],
+    [
+     "income_band",
+     "ib_upper_bound",
+     "customer_demographics",
+     "cd_demo_sk"
+    ],
+    [
+     "store_returns",
+     "sr_ticket_number",
+     "customer_demographics",
+     "cd_demo_sk"
+    ],
+    [
+     "store_sales",
+     "ss_ticket_number",
+     "customer_demographics",
+     "cd_demo_sk"
+    ],
+    [
+     "time_dim",
+     "t_time",
+     "time_dim",
+     "t_time_sk"
+    ],
+    [
+     "warehouse",
+     "w_warehouse_sq_ft",
+     "customer_demographics",
+     "cd_demo_sk"
+    ],
+    [
+     "web_page",
+     "wp_customer_sk",
+     "customer",
+     "c_customer_sk"
+    ]
+   ],
+   "migration": {
+    "No graph (alphabetical)": {
+     "Sq": 0.5686274509803921,
+     "rejected": 446828,
+     "patch_fail": 0,
+     "loaded": 2149961,
+     "waves": 24,
+     "cycles": 0,
+     "validation_Av": 0.9126984126984127,
+     "speedup4": 1.0
+    },
+    "Graph: Name-only": {
+     "Sq": 0.9117647058823529,
+     "rejected": 434030,
+     "patch_fail": 0,
+     "loaded": 2162759,
+     "waves": 3,
+     "cycles": 0,
+     "validation_Av": 0.9285714285714286,
+     "speedup4": 1.2854296564846954
+    },
+    "Graph: Proposed": {
+     "Sq": 1.0,
+     "rejected": 0,
+     "patch_fail": 0,
+     "loaded": 2596789,
+     "waves": 6,
+     "cycles": 2,
+     "validation_Av": 1.0,
+     "speedup4": 1.1910974628067141
+    },
+    "Oracle (declared FKs)": {
+     "Sq": 1.0,
+     "rejected": 0,
+     "patch_fail": 0,
+     "loaded": 2596789,
+     "waves": 4,
+     "cycles": 0,
+     "validation_Av": 1.0,
+     "speedup4": 1.1985233472580108
+    }
+   },
+   "impact": {
+    "mean_Is": 0.14930555555555555,
+    "max_Is": 0.5833333333333334
+   }
   }
  },
  "synthetic": {
-  "modern": {
+  "SynthModern-100": {
    "detection": {
     "Name-only": {
      "P": {
@@ -412,34 +668,34 @@
    },
    "recall_by_style": {
     "Name-only": {
+     "role": 1.0,
      "clean": 1.0,
      "abbrev": 0.4444444444444444,
-     "role": 1.0,
      "self": 1.0
     },
     "Data-only (IND)": {
+     "role": 0.5396825396825397,
      "clean": 0.5387263339070568,
      "abbrev": 0.4305555555555556,
-     "role": 0.5396825396825397,
      "self": 0.23076923076923078
     },
     "Fixed-weight fusion": {
+     "role": 1.0,
      "clean": 1.0,
      "abbrev": 0.9861111111111112,
-     "role": 1.0,
      "self": 1.0
     },
     "Proposed (adaptive)": {
+     "role": 1.0,
      "clean": 1.0,
      "abbrev": 1.0,
-     "role": 1.0,
      "self": 1.0
     }
    },
    "style_counts": {
+    "role": 63,
     "clean": 581,
     "abbrev": 72,
-    "role": 63,
     "self": 13
    },
    "migration": {
@@ -498,7 +754,7 @@
     "1.0": 0.9746312684365782
    }
   },
-  "legacy": {
+  "SynthLegacy-100": {
    "detection": {
     "Name-only": {
      "P": {
@@ -592,37 +848,37 @@
    "recall_by_style": {
     "Name-only": {
      "role": 1.0,
-     "clean": 1.0,
      "opaque": 0.0,
+     "clean": 1.0,
      "abbrev": 0.4520547945205479,
      "self": 1.0
     },
     "Data-only (IND)": {
      "role": 0.5254237288135594,
-     "clean": 0.529126213592233,
      "opaque": 0.5329341317365269,
+     "clean": 0.529126213592233,
      "abbrev": 0.54337899543379,
      "self": 0.4117647058823529
     },
     "Fixed-weight fusion": {
      "role": 1.0,
-     "clean": 1.0,
      "opaque": 0.059880239520958084,
+     "clean": 1.0,
      "abbrev": 0.958904109589041,
      "self": 1.0
     },
     "Proposed (adaptive)": {
      "role": 1.0,
-     "clean": 1.0,
      "opaque": 0.49101796407185627,
+     "clean": 1.0,
      "abbrev": 0.9680365296803652,
      "self": 1.0
     }
    },
    "style_counts": {
     "role": 177,
-    "clean": 206,
     "opaque": 167,
+    "clean": 206,
     "abbrev": 219,
     "self": 17
    },
@@ -690,12 +946,12 @@
    "true_deps": 78,
    "graph_nodes": 328,
    "graph_edges": 424,
-   "extract_s": 0.01903227100001459,
-   "standardize_s": 0.0009694939999462804,
-   "detect_s": 0.116353676000017,
-   "graph_s": 0.001303869999901508,
-   "plan_s": 0.0005889950000437238,
-   "impact100_s": 0.00035022399993067665,
+   "extract_s": 0.02452907000019877,
+   "standardize_s": 0.0013849559998106997,
+   "detect_s": 0.12320720600018831,
+   "graph_s": 0.0013398039998264721,
+   "plan_s": 0.0005172940000193194,
+   "impact100_s": 0.00048696500016376376,
    "F1": 0.8211920529801324,
    "waves": 9,
    "speedup4": 2.9798241076047596,
@@ -707,12 +963,12 @@
    "true_deps": 163,
    "graph_nodes": 663,
    "graph_edges": 857,
-   "extract_s": 0.045287571000017124,
-   "standardize_s": 0.0030536750000464963,
-   "detect_s": 0.5156344319998425,
-   "graph_s": 0.0026524390000304265,
-   "plan_s": 0.0008057649999955174,
-   "impact100_s": 0.0007720569999492,
+   "extract_s": 0.028673295000089638,
+   "standardize_s": 0.0018405109999548586,
+   "detect_s": 0.3943304320000607,
+   "graph_s": 0.0018317389999538136,
+   "plan_s": 0.0006608310000046913,
+   "impact100_s": 0.0006531710000672319,
    "F1": 0.9032258064516129,
    "waves": 12,
    "speedup4": 3.479870702321481,
@@ -724,12 +980,12 @@
    "true_deps": 373,
    "graph_nodes": 1623,
    "graph_edges": 2047,
-   "extract_s": 0.0857518479999726,
-   "standardize_s": 0.005439510999849517,
-   "detect_s": 3.3695065430001705,
-   "graph_s": 0.005191733999936332,
-   "plan_s": 0.001638141000057658,
-   "impact100_s": 0.0012408189998041053,
+   "extract_s": 0.07072133900010158,
+   "standardize_s": 0.009053783999888765,
+   "detect_s": 2.3295754170001146,
+   "graph_s": 0.005044128999998065,
+   "plan_s": 0.0016670570000769658,
+   "impact100_s": 0.0011963350000314676,
    "F1": 0.9352112676056339,
    "waves": 10,
    "speedup4": 3.9035657571820415,
@@ -741,12 +997,12 @@
    "true_deps": 779,
    "graph_nodes": 3279,
    "graph_edges": 4199,
-   "extract_s": 0.18903054600014002,
-   "standardize_s": 0.01767009299987876,
-   "detect_s": 11.932805959999996,
-   "graph_s": 0.012366161000045395,
-   "plan_s": 0.003414517999999589,
-   "impact100_s": 0.003676098999903843,
+   "extract_s": 0.17598820799980786,
+   "standardize_s": 0.009579904000020179,
+   "detect_s": 9.326828458000136,
+   "graph_s": 0.010185804000002463,
+   "plan_s": 0.0049060159999498865,
+   "impact100_s": 0.0028016999999636027,
    "F1": 0.9214237743451982,
    "waves": 14,
    "speedup4": 3.9357100679067023,
@@ -758,12 +1014,12 @@
    "true_deps": 1568,
    "graph_nodes": 6568,
    "graph_edges": 8402,
-   "extract_s": 0.4741892419999658,
-   "standardize_s": 0.029480039999953078,
-   "detect_s": 50.85572023200007,
-   "graph_s": 0.025909054000067044,
-   "plan_s": 0.006734193000056621,
-   "impact100_s": 0.007580714999903648,
+   "extract_s": 0.3706652580001446,
+   "standardize_s": 0.06354452100003982,
+   "detect_s": 37.61433473399984,
+   "graph_s": 0.02187916699995185,
+   "plan_s": 0.007697428000028594,
+   "impact100_s": 0.007130482000093252,
    "F1": 0.9172529313232831,
    "waves": 25,
    "speedup4": 3.950836326693516,
@@ -775,12 +1031,12 @@
    "true_deps": 3167,
    "graph_nodes": 13167,
    "graph_edges": 16895,
-   "extract_s": 0.8682632290001493,
-   "standardize_s": 0.061467267999887554,
-   "detect_s": 196.39984892899997,
-   "graph_s": 0.053109745000256225,
-   "plan_s": 0.015934555999592703,
-   "impact100_s": 0.02172765800014531,
+   "extract_s": 0.6481715729998996,
+   "standardize_s": 0.04791362600008142,
+   "detect_s": 170.08705157600002,
+   "graph_s": 0.052830542000037894,
+   "plan_s": 0.018526458999986062,
+   "impact100_s": 0.020180780999908166,
    "F1": 0.8990217211076107,
    "waves": 27,
    "speedup4": 3.9634177307022633,

@@ -33,8 +33,8 @@ python src/make_figures.py      # figures (PNG, 300 dpi) + results/tables.md
 | Northwind | [jpwhite3/northwind-SQLite3](https://github.com/jpwhite3/northwind-SQLite3) | 13 | 88 | 625,890 | 13 declared FKs | `schemas/northwind.db` |
 | Sakila | [bradleygrant/sakila-sqlite3](https://github.com/bradleygrant/sakila-sqlite3) | 16 | 89 | 46,273 | 22 declared FKs | `schemas/sakila.db` |
 | TPC-DS (SF 1) | TPC-DS kit ([gregrahn/tpcds-kit](https://github.com/gregrahn/tpcds-kit) @ `5a3a817`) | 24 | 425 | 2,596,789 | 102 FKs from `tpcds_ri.sql` | `schemas/tpcds_sf1.db` |
-| SynthModern-100 | `src/synth.py`, seeds 201–205 | 100 each | ~570 each | ~21k each | ~145 planted each | `synth/synth_modern_s201.db` … |
-| SynthLegacy-100 | `src/synth.py`, seeds 201–205 | 100 each | ~570 each | ~21k each | ~155 planted each | `synth/synth_legacy_s201.db` … |
+| SynthModern-100 | `src/synth.py`, seeds 201–205 | 100 each | ~570 each | ~21k each | ~146 planted each (mean) | `synth/synth_modern_s201.db` … |
+| SynthLegacy-100 | `src/synth.py`, seeds 201–205 | 100 each | ~570 each | ~21k each | ~157 planted each (mean) | `synth/synth_legacy_s201.db` … |
 
 Development (tuning) data: `synth_{modern,legacy}_s{101,102,103}.db`, 60 tables each.
 Scalability data: `synth_legacy_scale{N}_s{900+N}.db`, N = 50 … 2,000 tables.
