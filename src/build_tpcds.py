@@ -38,8 +38,10 @@ def build_kit():
 def generate():
     if not os.path.exists(os.path.join(DAT, "store_sales.dat")):
         os.makedirs(DAT, exist_ok=True)
-        sh(["./dsdgen", "-scale", str(SCALE), "-dir", DAT, "-force", "-rngseed", str(RNGSEED)],
-           cwd=os.path.join(KIT, "tools"))
+        tools = os.path.join(KIT, "tools")
+        # dsdgen truncates long -dir paths, so pass the output folder relative to its working dir
+        sh(["./dsdgen", "-scale", str(SCALE), "-dir", os.path.relpath(DAT, tools), "-force",
+            "-rngseed", str(RNGSEED)], cwd=tools)
     sums = {f: hashlib.sha256(open(os.path.join(DAT, f), "rb").read()).hexdigest()
             for f in sorted(os.listdir(DAT)) if f.endswith(".dat") and f != "dbgen_version.dat"}
     if os.path.exists(CHECKSUMS):
