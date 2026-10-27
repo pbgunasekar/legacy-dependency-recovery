@@ -16,7 +16,9 @@ ADAPT = dict(method="confidence", alpha=A["alpha"], tau=A["tau"], min_inc=A["min
 METHODS = {"Name-only": NAME, "Data-only (IND)": DATA, "Fixed-weight fusion": CONF,
            "Proposed (adaptive)": ADAPT}
 PROP = "Proposed (adaptive)"
-PUBLIC = {"Chinook": "Chinook_Sqlite.sqlite", "Northwind": "northwind.db", "Sakila": "sakila_master.db"}
+PUBLIC = {"Chinook": "chinook.db", "Northwind": "northwind.db", "Sakila": "sakila.db",
+          "TPC-DS": "tpcds_sf1.db"}          # TPC-DS built by src/build_tpcds.py
+SYNTH = {"SynthModern-100": "modern", "SynthLegacy-100": "legacy"}   # dataset name -> naming profile
 TEST_SEEDS = [201, 202, 203, 204, 205]
 out = {"params": P}
 
@@ -64,10 +66,10 @@ for nm, f in PUBLIC.items():
 os.makedirs(os.path.join(ROOT, "synth"), exist_ok=True)
 out["synthetic"] = {}
 alphas = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-for prof in ["modern", "legacy"]:
+for dname, prof in SYNTH.items():
     agg = {m: [] for m in METHODS}; style_hits = {}; mig = []; sens = {a: [] for a in alphas}
     for seed in TEST_SEEDS:
-        p = os.path.join(ROOT, "synth", f"test_{prof}_{seed}.db")
+        p = os.path.join(ROOT, "synth", f"synth_{prof}_s{seed}.db")
         if os.path.exists(p): os.remove(p)
         conn, T = S.generate(p, 100, prof, seed); styles = dict(S.LAST_STYLES)
         md = K.standardize(K.extract(conn))
@@ -89,17 +91,17 @@ for prof in ["modern", "legacy"]:
     migsum = {}
     for plan_name in mig[0]:
         migsum[plan_name] = {k: st.mean(m[plan_name][k] for m in mig) for k in mig[0][plan_name]}
-    out["synthetic"][prof] = {"detection": summ,
+    out["synthetic"][dname] = {"detection": summ,
                               "recall_by_style": {m: {s: h / n for s, (h, n) in d.items()} for m, d in style_hits.items()},
                               "style_counts": {s: n for s, (h, n) in style_hits["Name-only"].items()},
                               "migration": migsum,
                               "alpha_sensitivity": {str(a): st.mean(v) for a, v in sens.items()}}
-    print(prof, {m: round(v["F1"]["mean"], 3) for m, v in summ.items()})
+    print(dname, {m: round(v["F1"]["mean"], 3) for m, v in summ.items()})
 
-# ---------------- E5: scalability (legacy profile)
+# ---------------- E5: scalability (SynthLegacy, 50-2000 tables)
 out["scalability"] = []
 for n in [50, 100, 250, 500, 1000, 2000]:
-    p = os.path.join(ROOT, "synth", f"scale_{n}.db")
+    p = os.path.join(ROOT, "synth", f"synth_legacy_scale{n}_s{900 + n}.db")
     if os.path.exists(p): os.remove(p)
     conn, T = S.generate(p, n, "legacy", 900 + n, rows=(20, 200))
     t0 = time.perf_counter(); md = K.extract(conn); t1 = time.perf_counter()

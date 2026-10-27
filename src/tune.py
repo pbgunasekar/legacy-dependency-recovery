@@ -6,7 +6,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dev = []
 for prof in ["modern", "legacy"]:
     for seed in [101, 102, 103]:
-        p = os.path.join(ROOT, "synth", f"dev_{prof}_{seed}.db")
+        p = os.path.join(ROOT, "synth", f"synth_{prof}_s{seed}.db")
         if os.path.exists(p): os.remove(p)
         c, T = S.generate(p, 60, prof, seed); dev.append((K.standardize(K.extract(c)), T))
 mf = lambda **kw: sum(K.prf(K.detect(md, **kw), T)[2] for md, T in dev) / len(dev)

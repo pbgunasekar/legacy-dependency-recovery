@@ -1,4 +1,5 @@
-  schemas/
-  synth/
-  __pycache__/
-  .venv/
+schemas/
+synth/
+build/
+__pycache__/
+.venv/
