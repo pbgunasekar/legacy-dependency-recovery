@@ -1,0 +1,16 @@
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+ & Missing rows & \multicolumn{2}{c}{Corrupted refs (graph)} & Corrupted refs & Source orphans & False alarms \\
+\cmidrule(lr){3-4}
+Dataset & (graph) & recovered dep. & missed dep. & (audit) & (graph/audit) & (rows) \\
+\midrule
+Chinook & 50/50 & 42/42 & 0/8 & 50/50 & 0/0 & 0 \\
+Northwind & 50/50 & 47/47 & 0/3 & 50/50 & 0/0 & 0 \\
+Sakila & 50/50 & 50/50 & 0/0 & 50/50 & 0/0 & 0 \\
+TPC-DS & 50/50 & 43/43 & 0/7 & 50/50 & 0/0 & 669 \\
+SynthModern-100 & 50.0/50.0 & 50.0/50.0 & 0.0/0.0 & 50.0/50.0 & 607.4/607.4 & 80.6 \\
+SynthLegacy-100 & 50.0/50.0 & 43.8/43.8 & 0.0/5.4 & 50.0/50.0 & 574.6/663.2 & 171.0 \\
+\bottomrule
+\end{tabular}
+}

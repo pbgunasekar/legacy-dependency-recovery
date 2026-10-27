@@ -129,7 +129,7 @@ def n0(x): return f"{x:,.0f}"
 def wr(name, body): open(os.path.join(TEX, name + ".tex"), "w").write(body)
 md = []   # markdown mirror
 
-def resize(tab): return "\\resizebox{\\columnwidth}{!}{%\n" + tab + "}\n"
+def resize(tab): return "\\resizebox{\\linewidth}{!}{%\n" + tab + "}\n"   # scales to the float (column or page width)
 
 # datasets
 rows = []
@@ -179,7 +179,7 @@ rows = []
 for d in DS:
     cells = []
     for p in PLANS:
-        m = mig(d, p); cells.append(f"{pct(m['initially_loaded'] / m['source_rows'])} / {pct(m['exact'] / m['source_rows'])}")
+        m = mig(d, p); cells.append(f"{pct(m['initially_loaded'] / m['source_rows'])} / {pct(m['exact'] / m['source_rows'])} / {pct(m['exact_strict'] / m['source_rows'])}")
     rows.append(f"{d} & " + " & ".join(cells) + " \\\\")
 wr("tab_migration", resize("\\begin{tabular}{lcccc}\n\\toprule\nDataset & No graph & Name-only graph & Proposed graph & Oracle \\\\\n\\midrule\n"
                            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
@@ -190,8 +190,8 @@ for d in DS:
     for p, lbl in (("Graph: Proposed", "Proposed"), ("Oracle (true dependencies)", "Oracle")):
         m = mig(d, p)
         rows.append(f"{d if lbl == 'Proposed' else ''} & {lbl} & {m['deferred_columns']:.1f} & {m['notnull_deferred_columns']:.0f} & "
-                    f"{n0(m['initially_loaded'])} & {n0(m['phase2_failures'])} & {n0(m['exact'])} & {n0(m['altered'])} & {n0(m['missing'])} \\\\")
-wr("tab_twophase", resize("\\begin{tabular}{llrrrrrrr}\n\\toprule\nDataset & Plan & Deferred cols. & NOT NULL & Loaded (phase 1) & Phase-2 failures & Exact & Altered & Missing \\\\\n\\midrule\n"
+                    f"{n0(m['initially_loaded'])} & {n0(m['phase2_failures'])} & {n0(m['exact'])} & {n0(m['altered'])} & {n0(m['missing'])} & {n0(m['exact_strict'])} \\\\")
+wr("tab_twophase", resize("\\begin{tabular}{llrrrrrrrr}\n\\toprule\n & & Deferred & & Loaded & Phase-2 & \\multicolumn{3}{c}{Null-and-flag policy} & Strict \\\\\n\\cmidrule(lr){7-9}\nDataset & Plan & cols. & NOT NULL & (phase 1) & failures & Exact & Altered & Missing & exact \\\\\n\\midrule\n"
                           + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
 
 # validation
@@ -330,6 +330,37 @@ nums += "".join([
     cmd("stDirtyProp", f"{STd['Proposed (adaptive)']['F1']['mean']:.3f}"), cmd("stDirtyData", f"{STd['Data-only (IND)']['F1']['mean']:.3f}"),
     cmd("stBaseProp", f"{ST['Baseline (new seeds)']['detection']['Proposed (adaptive)']['F1']['mean']:.3f}"),
     cmd("stCompDeps", f"{ST['Composite keys (15 composite parents)']['ground_truth']['composite_deps']:.0f}"),
+    cmd("stCompFPclf", f"{STcomp['Classifier (partial IND)']['FP_on_composite_columns']['mean']:.1f}"),
+    cmd("stCompProp", f"{STcomp['Proposed (adaptive)']['F1']['mean']:.3f}"),
+    cmd("stDirtyName", f"{STd['Name-only']['F1']['mean']:.3f}"), cmd("stDirtyFixed", f"{STd['Fixed-weight fusion']['F1']['mean']:.3f}"),
+    cmd("stDirtyTenProp", f"{ST['Dirty references (10% orphans)']['detection']['Proposed (adaptive)']['F1']['mean']:.3f}"),
+    cmd("stDirtyTenFixed", f"{ST['Dirty references (10% orphans)']['detection']['Fixed-weight fusion']['F1']['mean']:.3f}"),
+    cmd("stNullProp", f"{ST['Sparse references (30% NULL)']['detection']['Proposed (adaptive)']['F1']['mean']:.3f}"),
+    cmd("stAmbProp", f"{ST['Ambiguous keys (all integer)']['detection']['Proposed (adaptive)']['F1']['mean']:.3f}"),
+    cmd("stAmbFixed", f"{ST['Ambiguous keys (all integer)']['detection']['Fixed-weight fusion']['F1']['mean']:.3f}"),
+    cmd("stAmbPropP", f"{ST['Ambiguous keys (all integer)']['detection']['Proposed (adaptive)']['P']['mean']:.3f}"),
+    cmd("stAmbData", f"{ST['Ambiguous keys (all integer)']['detection']['Data-only (IND)']['F1']['mean']:.3f}"),
+    cmd("stCombFixed", f"{STc['Fixed-weight fusion']['F1']['mean']:.3f}"),
+    cmd("stNoPkFixed", f"{STn['Fixed-weight fusion']['F1']['mean']:.3f}"),
+    cmd("stNoPkDeps", f"{ST['Missing primary keys (20% of tables)']['ground_truth']['deps_to_undeclared_pk']:.1f}"),
+    cmd("ablNWnoAdapt", f3(det("Northwind", "Proposed without adaptive rule"))),
+    cmd("ablModNoAdapt", f3(det("SynthModern-100", "Proposed without adaptive rule"))),
+    cmd("ablChinookNoSpec", f3(det("Chinook", "Proposed without specificity"))),
+    cmd("ablNWNoSpec", f3(det("Northwind", "Proposed without specificity"))),
+    cmd("legStrictProposed", pct(mig("SynthLegacy-100", "Graph: Proposed")["exact_strict"] / mig("SynthLegacy-100", "Graph: Proposed")["source_rows"])),
+    cmd("legStrictOracle", pct(mig("SynthLegacy-100", "Oracle (true dependencies)")["exact_strict"] / mig("SynthLegacy-100", "Oracle (true dependencies)")["source_rows"])),
+    cmd("modExactProposed", pct(mig("SynthModern-100", "Graph: Proposed")["exact"] / mig("SynthModern-100", "Graph: Proposed")["source_rows"])),
+    cmd("modExactOracle", pct(mig("SynthModern-100", "Oracle (true dependencies)")["exact"] / mig("SynthModern-100", "Oracle (true dependencies)")["source_rows"])),
+    cmd("modStrictProposed", pct(mig("SynthModern-100", "Graph: Proposed")["exact_strict"] / mig("SynthModern-100", "Graph: Proposed")["source_rows"])),
+    cmd("modStrictOracle", pct(mig("SynthModern-100", "Oracle (true dependencies)")["exact_strict"] / mig("SynthModern-100", "Oracle (true dependencies)")["source_rows"])),
+    cmd("valLegWrongN", f"{v_('SynthLegacy-100')['wrong_target']['n']:.1f}"), cmd("valLegWrongG", f"{v_('SynthLegacy-100')['wrong_target']['graph']:.1f}"),
+    cmd("tpcPairsCands", f"{100 * TP['candidates_after_blocking'] / TP['type_compatible_pairs']:.0f}\\%"),
+    cmd("scaleBlockShare", f"{100 * big['candidates_after_blocking'] / big['type_compatible_pairs']:.0f}\\%"),
+    cmd("scaleMaxDetectMin", f"{big['detect_s']['min']:.1f}"), cmd("scaleMaxDetectMax", f"{big['detect_s']['max']:.1f}"),
+    cmd("modClfPartialFone", f3(det("SynthModern-100", "Classifier (partial IND)"))),
+    cmd("legClfExactFoneB", f3(det("SynthLegacy-100", "Classifier (exact IND)"))),
+    cmd("modClfExactFone", f3(det("SynthModern-100", "Classifier (exact IND)"))),
+    cmd("sampSmallS", f"{sm['100']['secs']:.2f}"),
 ])
 open(os.path.join(TEX, "numbers.tex"), "w").write(nums)
 
@@ -349,9 +380,9 @@ for d in DS:
             L.append(f"| {d} | {m} | {det(d, m, 'P'):.3f} | {det(d, m, 'R'):.3f} | {det(d, m):.3f} |")
         else:
             L.append(f"| {d} | {m} | {det(d, m, 'P'):.3f} ± {sd(d, m, 'P'):.3f} | {det(d, m, 'R'):.3f} ± {sd(d, m, 'R'):.3f} | {det(d, m):.3f} ± {sd(d, m):.3f} |")
-L += ["\n## Migration: initially loaded / migrated exactly (share of source rows)\n", "| Dataset | " + " | ".join(PLAN_LBL) + " |", "|---|---|---|---|---|"]
+L += ["\n## Migration: initially loaded / exact (null-and-flag) / exact (strict) (share of source rows)\n", "| Dataset | " + " | ".join(PLAN_LBL) + " |", "|---|---|---|---|---|"]
 for d in DS:
-    L.append(f"| {d} | " + " | ".join(f"{100 * mig(d, p)['initially_loaded'] / mig(d, p)['source_rows']:.1f}% / {100 * mig(d, p)['exact'] / mig(d, p)['source_rows']:.1f}%" for p in PLANS) + " |")
+    L.append(f"| {d} | " + " | ".join(f"{100 * mig(d, p)['initially_loaded'] / mig(d, p)['source_rows']:.1f}% / {100 * mig(d, p)['exact'] / mig(d, p)['source_rows']:.1f}% / {100 * mig(d, p)['exact_strict'] / mig(d, p)['source_rows']:.1f}%" for p in PLANS) + " |")
 L += ["\n## Validation (proposed graph, 50 deleted rows + 50 corrupted references injected)\n",
       "| Dataset | Missing rows found (graph) | Corruptions found on recovered deps (graph) | on missed deps (graph) | Corruptions found (audit) | False-alarm rows |", "|---|---|---|---|---|---|"]
 for d in DS:

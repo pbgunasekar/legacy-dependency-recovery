@@ -367,7 +367,7 @@ def migrate(src, md, pl, truth):
             except sqlite3.IntegrityError:
                 rejected += 1
     # phase 2: patch deferred (cyclic / self-referencing) columns
-    patch_fail = 0
+    patch_fail = 0; failed_keys = []
     for t, cols, r in patch:
         pkc = md["tables"][t]["pk"]
         sets = ",".join(f'"{c}"=?' for c in cols if c in deferred_cols[t])
@@ -376,9 +376,31 @@ def migrate(src, md, pl, truth):
         try:
             tgt.execute(f'update "{t}" set {sets} where {where}', vals + [r[cols.index(p)] for p in pkc])
         except sqlite3.IntegrityError:
-            patch_fail += 1
+            patch_fail += 1; failed_keys.append((t, tuple(r[cols.index(p)] for p in pkc)))
     elapsed = time.perf_counter() - t0
-    return tgt, {"loaded": loaded, "rejected": rejected, "patch_fail": patch_fail, "secs": elapsed}
+    return tgt, {"loaded": loaded, "rejected": rejected, "patch_fail": patch_fail, "secs": elapsed,
+                 "failed_keys": failed_keys}
+
+def strict_cleanup(tgt, md, truth, failed_keys):
+    """Strict policy: remove every row whose second-phase update failed, then repeatedly
+    remove rows whose reference lost its parent, until referential integrity holds along
+    the true dependencies. Modifies tgt; returns the number of rows removed."""
+    if not failed_keys:
+        return 0
+    tgt.commit()                          # the pragma has no effect inside a transaction
+    tgt.execute("pragma foreign_keys=OFF")
+    removed = 0
+    for t, key in failed_keys:
+        pk = md["tables"][t]["pk"]
+        removed += tgt.execute(f'delete from "{t}" where {" and ".join(chr(34)+p+chr(34)+"=?" for p in pk)}', key).rowcount
+    while True:
+        n = 0
+        for (t, c, pt, k) in truth:
+            n += tgt.execute(f'delete from "{t}" where "{c}" is not null and not exists '
+                             f'(select 1 from "{pt}" p where p."{k}" = "{t}"."{c}")').rowcount
+        removed += n
+        if not n:
+            return removed
 
 def final_state(src, tgt, md):
     """Final outcome after both load phases, per source row:

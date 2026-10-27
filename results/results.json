@@ -1,4 +1,15 @@
 {
+ "environment": {
+  "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "logical_cpus": 2,
+  "os": "Linux-6.18.44-fc-v165-x86_64-with-glibc2.39",
+  "python": "3.13.17",
+  "networkx": "3.7",
+  "scikit_learn": "1.9.1",
+  "sqlite": "3.53.1",
+  "started": "2026-10-27 16:15:58 EDT",
+  "finished": "2026-10-27 16:36:43 EDT"
+ },
  "params": {
   "confidence": {
    "alpha": 0.7,
@@ -26,6 +37,9 @@
    "columns": 64,
    "rows": 15607,
    "true_deps": 11,
+   "profile_s": 0.01975575899996329,
+   "type_compatible_pairs": 170,
+   "candidates_after_blocking": 122,
    "detection": {
     "Name-only": {
      "P": 1.0,
@@ -34,7 +48,7 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.00011497999980747409
+     "secs": 0.0001408430002811656
     },
     "Data-only (IND)": {
      "P": 1.0,
@@ -43,7 +57,7 @@
      "TP": 7,
      "FP": 0,
      "FN": 4,
-     "secs": 0.025209775999883277
+     "secs": 0.0032823320002535183
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -52,7 +66,7 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.002858654999954524
+     "secs": 0.0032678849997864745
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -61,9 +75,46 @@
      "TP": 9,
      "FP": 0,
      "FN": 2,
-     "secs": 0.0027578869999160815
+     "secs": 0.003152225000121689
+    },
+    "Proposed without adaptive rule": {
+     "P": 1.0,
+     "R": 0.8181818181818182,
+     "F1": 0.9,
+     "TP": 9,
+     "FP": 0,
+     "FN": 2,
+     "secs": 0.0033775910001168086
+    },
+    "Proposed without specificity": {
+     "P": 0.8333333333333334,
+     "R": 0.9090909090909091,
+     "F1": 0.8695652173913043,
+     "TP": 10,
+     "FP": 2,
+     "FN": 1,
+     "secs": 0.003224945000056323
+    },
+    "Classifier (exact IND)": {
+     "P": 0.75,
+     "R": 0.8181818181818182,
+     "F1": 0.7826086956521738,
+     "TP": 9,
+     "FP": 3,
+     "FN": 2,
+     "secs": 0.003657671000382834
+    },
+    "Classifier (partial IND)": {
+     "P": 0.75,
+     "R": 0.8181818181818182,
+     "F1": 0.7826086956521738,
+     "TP": 9,
+     "FP": 3,
+     "FN": 2,
+     "secs": 0.0024037600001065584
     }
    },
+   "proposed_detected": 9,
    "missed_by_proposed": [
     [
      "Customer",
@@ -81,45 +132,112 @@
    "fp_by_proposed": [],
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.6363636363636364,
+     "source_rows": 15607,
+     "initially_loaded": 331,
      "rejected": 15276,
-     "patch_fail": 0,
-     "loaded": 331,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 331,
+     "altered": 0,
+     "missing": 15276,
+     "exact_strict": 331,
+     "Sq": 0.6363636363636364,
      "waves": 11,
      "cycles": 0,
-     "validation_Av": 0.7272727272727273,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 0.9090909090909091,
+     "source_rows": 15607,
+     "initially_loaded": 12896,
      "rejected": 2711,
-     "patch_fail": 0,
-     "loaded": 12896,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 12896,
+     "altered": 0,
+     "missing": 2711,
+     "exact_strict": 12896,
+     "Sq": 0.9090909090909091,
      "waves": 4,
      "cycles": 0,
-     "validation_Av": 0.8636363636363636,
-     "speedup4": 1.209376210771019
+     "speedup4_model": 1.209376210771019
     },
     "Graph: Proposed": {
-     "Sq": 0.9090909090909091,
+     "source_rows": 15607,
+     "initially_loaded": 12896,
      "rejected": 2711,
-     "patch_fail": 0,
-     "loaded": 12896,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 12896,
+     "altered": 0,
+     "missing": 2711,
+     "exact_strict": 12896,
+     "Sq": 0.9090909090909091,
      "waves": 4,
      "cycles": 0,
-     "validation_Av": 0.8636363636363636,
-     "speedup4": 1.209376210771019
+     "speedup4_model": 1.209376210771019
     },
-    "Oracle (declared FKs)": {
-     "Sq": 1.0,
+    "Oracle (true dependencies)": {
+     "source_rows": 15607,
+     "initially_loaded": 15607,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 15607,
+     "deferred_columns": 1,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 15607,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 15607,
+     "Sq": 1.0,
      "waves": 4,
      "cycles": 1,
-     "validation_Av": 1.0,
-     "speedup4": 1.2154984423676012
+     "speedup4_model": 1.2154984423676012
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 0,
+     "orphan_rows_flagged_on_true_edges": 0,
+     "orphan_rows_flagged_on_wrong_edges": 0,
+     "wrong_edges_raising_alerts": 0
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 42,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 42,
+      "graph": 42,
+      "audit": 42
+     },
+     "wrong_target": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     },
+     "missed": {
+      "n": 8,
+      "graph": 0,
+      "audit": 8
+     }
+    },
+    "true_dependencies": 11,
+    "recovered_true": 9,
+    "wrong_edges": 0,
+    "missed_dependencies": 2
+   },
+   "cycles": {
+    "true_cycles": 1,
+    "true_cyclic_columns": 1,
+    "recovered_cycles": 0,
+    "recovered_cyclic_columns": 0,
+    "true_cyclic_columns_recovered": 0
    },
    "impact": {
     "mean_Is": 0.15702479338842976,
@@ -131,6 +249,9 @@
    "columns": 88,
    "rows": 625890,
    "true_deps": 13,
+   "profile_s": 0.5569656960001339,
+   "type_compatible_pairs": 274,
+   "candidates_after_blocking": 84,
    "detection": {
     "Name-only": {
      "P": 1.0,
@@ -139,7 +260,7 @@
      "TP": 11,
      "FP": 0,
      "FN": 2,
-     "secs": 0.000168454999993628
+     "secs": 0.00019306199965285487
     },
     "Data-only (IND)": {
      "P": 0.8333333333333334,
@@ -148,7 +269,7 @@
      "TP": 10,
      "FP": 2,
      "FN": 3,
-     "secs": 0.020994585999915216
+     "secs": 0.0024942209997789178
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -157,7 +278,7 @@
      "TP": 12,
      "FP": 0,
      "FN": 1,
-     "secs": 0.0018313349999061757
+     "secs": 0.0035948999998254294
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -166,9 +287,46 @@
      "TP": 12,
      "FP": 0,
      "FN": 1,
-     "secs": 0.0018366270001024532
+     "secs": 0.005206210000324063
+    },
+    "Proposed without adaptive rule": {
+     "P": 0.9230769230769231,
+     "R": 0.9230769230769231,
+     "F1": 0.9230769230769231,
+     "TP": 12,
+     "FP": 1,
+     "FN": 1,
+     "secs": 0.006523824999931094
+    },
+    "Proposed without specificity": {
+     "P": 0.8461538461538461,
+     "R": 0.8461538461538461,
+     "F1": 0.8461538461538461,
+     "TP": 11,
+     "FP": 2,
+     "FN": 2,
+     "secs": 0.004530850999799441
+    },
+    "Classifier (exact IND)": {
+     "P": 0.9090909090909091,
+     "R": 0.7692307692307693,
+     "F1": 0.8333333333333333,
+     "TP": 10,
+     "FP": 1,
+     "FN": 3,
+     "secs": 0.01049923199980185
+    },
+    "Classifier (partial IND)": {
+     "P": 0.6666666666666666,
+     "R": 0.7692307692307693,
+     "F1": 0.7142857142857142,
+     "TP": 10,
+     "FP": 5,
+     "FN": 3,
+     "secs": 0.0027130400003443356
     }
    },
+   "proposed_detected": 12,
    "missed_by_proposed": [
     [
      "Employees",
@@ -180,45 +338,112 @@
    "fp_by_proposed": [],
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.38461538461538464,
+     "source_rows": 625890,
+     "initially_loaded": 198,
      "rejected": 625692,
-     "patch_fail": 0,
-     "loaded": 198,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 198,
+     "altered": 0,
+     "missing": 625692,
+     "exact_strict": 198,
+     "Sq": 0.38461538461538464,
      "waves": 13,
      "cycles": 0,
-     "validation_Av": 0.8076923076923077,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 1.0,
+     "source_rows": 625890,
+     "initially_loaded": 556422,
      "rejected": 69468,
-     "patch_fail": 0,
-     "loaded": 556422,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 556422,
+     "altered": 0,
+     "missing": 69468,
+     "exact_strict": 556422,
+     "Sq": 1.0,
      "waves": 3,
      "cycles": 0,
-     "validation_Av": 0.8461538461538461,
-     "speedup4": 1.000374006246224
+     "speedup4_model": 1.000374006246224
     },
     "Graph: Proposed": {
-     "Sq": 1.0,
+     "source_rows": 625890,
+     "initially_loaded": 556422,
      "rejected": 69468,
-     "patch_fail": 0,
-     "loaded": 556422,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 556422,
+     "altered": 0,
+     "missing": 69468,
+     "exact_strict": 556422,
+     "Sq": 1.0,
      "waves": 3,
      "cycles": 0,
-     "validation_Av": 0.8461538461538461,
-     "speedup4": 1.000374006246224
+     "speedup4_model": 1.000374006246224
     },
-    "Oracle (declared FKs)": {
-     "Sq": 1.0,
+    "Oracle (true dependencies)": {
+     "source_rows": 625890,
+     "initially_loaded": 625890,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 625890,
+     "deferred_columns": 1,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 625890,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 625890,
+     "Sq": 1.0,
      "waves": 3,
      "cycles": 1,
-     "validation_Av": 1.0,
-     "speedup4": 1.000374006246224
+     "speedup4_model": 1.000374006246224
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 0,
+     "orphan_rows_flagged_on_true_edges": 0,
+     "orphan_rows_flagged_on_wrong_edges": 0,
+     "wrong_edges_raising_alerts": 0
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 47,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 47,
+      "graph": 47,
+      "audit": 47
+     },
+     "wrong_target": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     },
+     "missed": {
+      "n": 3,
+      "graph": 0,
+      "audit": 3
+     }
+    },
+    "true_dependencies": 13,
+    "recovered_true": 12,
+    "wrong_edges": 0,
+    "missed_dependencies": 1
+   },
+   "cycles": {
+    "true_cycles": 1,
+    "true_cyclic_columns": 1,
+    "recovered_cycles": 0,
+    "recovered_cyclic_columns": 0,
+    "true_cyclic_columns_recovered": 0
    },
    "impact": {
     "mean_Is": 0.10650887573964497,
@@ -230,6 +455,9 @@
    "columns": 89,
    "rows": 46273,
    "true_deps": 22,
+   "profile_s": 0.10346924399982527,
+   "type_compatible_pairs": 392,
+   "candidates_after_blocking": 303,
    "detection": {
     "Name-only": {
      "P": 1.0,
@@ -238,7 +466,7 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.00023332800014941313
+     "secs": 0.0002557570001044951
     },
     "Data-only (IND)": {
      "P": 0.7894736842105263,
@@ -247,7 +475,7 @@
      "TP": 15,
      "FP": 4,
      "FN": 7,
-     "secs": 0.03746813399993698
+     "secs": 0.008547621999696275
     },
     "Fixed-weight fusion": {
      "P": 1.0,
@@ -256,7 +484,7 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.006830143999877691
+     "secs": 0.008717904000150156
     },
     "Proposed (adaptive)": {
      "P": 1.0,
@@ -265,52 +493,156 @@
      "TP": 22,
      "FP": 0,
      "FN": 0,
-     "secs": 0.007027968000102192
+     "secs": 0.008482523000111541
+    },
+    "Proposed without adaptive rule": {
+     "P": 1.0,
+     "R": 1.0,
+     "F1": 1.0,
+     "TP": 22,
+     "FP": 0,
+     "FN": 0,
+     "secs": 0.009124308000082237
+    },
+    "Proposed without specificity": {
+     "P": 0.68,
+     "R": 0.7727272727272727,
+     "F1": 0.7234042553191491,
+     "TP": 17,
+     "FP": 8,
+     "FN": 5,
+     "secs": 0.008596201999807818
+    },
+    "Classifier (exact IND)": {
+     "P": 0.875,
+     "R": 0.9545454545454546,
+     "F1": 0.9130434782608695,
+     "TP": 21,
+     "FP": 3,
+     "FN": 1,
+     "secs": 0.015091524999661488
+    },
+    "Classifier (partial IND)": {
+     "P": 0.875,
+     "R": 0.9545454545454546,
+     "F1": 0.9130434782608695,
+     "TP": 21,
+     "FP": 3,
+     "FN": 1,
+     "secs": 0.008864092999829154
     }
    },
+   "proposed_detected": 22,
    "missed_by_proposed": [],
    "fp_by_proposed": [],
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.5454545454545454,
+     "source_rows": 46273,
+     "initially_loaded": 331,
      "rejected": 45942,
-     "patch_fail": 0,
-     "loaded": 331,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 331,
+     "altered": 0,
+     "missing": 45942,
+     "exact_strict": 331,
+     "Sq": 0.5454545454545454,
      "waves": 16,
      "cycles": 0,
-     "validation_Av": 0.7105263157894737,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 0.9545454545454546,
+     "source_rows": 46273,
+     "initially_loaded": 46273,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 46273,
+     "deferred_columns": 2,
+     "notnull_deferred_columns": 2,
+     "phase2_failures": 0,
+     "exact": 46273,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 46273,
+     "Sq": 0.9545454545454546,
      "waves": 7,
      "cycles": 1,
-     "validation_Av": 1.0,
-     "speedup4": 1.0677465503714985
+     "speedup4_model": 1.0677465503714985
     },
     "Graph: Proposed": {
-     "Sq": 0.9545454545454546,
+     "source_rows": 46273,
+     "initially_loaded": 46273,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 46273,
+     "deferred_columns": 2,
+     "notnull_deferred_columns": 2,
+     "phase2_failures": 0,
+     "exact": 46273,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 46273,
+     "Sq": 0.9545454545454546,
      "waves": 7,
      "cycles": 1,
-     "validation_Av": 1.0,
-     "speedup4": 1.0677465503714985
+     "speedup4_model": 1.0677465503714985
     },
-    "Oracle (declared FKs)": {
-     "Sq": 0.9545454545454546,
+    "Oracle (true dependencies)": {
+     "source_rows": 46273,
+     "initially_loaded": 46273,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 46273,
+     "deferred_columns": 2,
+     "notnull_deferred_columns": 2,
+     "phase2_failures": 0,
+     "exact": 46273,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 46273,
+     "Sq": 0.9545454545454546,
      "waves": 7,
      "cycles": 1,
-     "validation_Av": 1.0,
-     "speedup4": 1.0677465503714985
+     "speedup4_model": 1.0677465503714985
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 0,
+     "orphan_rows_flagged_on_true_edges": 0,
+     "orphan_rows_flagged_on_wrong_edges": 0,
+     "wrong_edges_raising_alerts": 0
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 50,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 50,
+      "graph": 50,
+      "audit": 50
+     },
+     "wrong_target": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     },
+     "missed": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     }
+    },
+    "true_dependencies": 22,
+    "recovered_true": 22,
+    "wrong_edges": 0,
+    "missed_dependencies": 0
+   },
+   "cycles": {
+    "true_cycles": 1,
+    "true_cyclic_columns": 2,
+    "recovered_cycles": 1,
+    "recovered_cyclic_columns": 2,
+    "true_cyclic_columns_recovered": 2
    },
    "impact": {
     "mean_Is": 0.19140625,
@@ -322,6 +654,9 @@
    "columns": 425,
    "rows": 2596789,
    "true_deps": 102,
+   "profile_s": 11.140024349000214,
+   "type_compatible_pairs": 4284,
+   "candidates_after_blocking": 2987,
    "detection": {
     "Name-only": {
      "P": 1.0,
@@ -330,7 +665,7 @@
      "TP": 17,
      "FP": 0,
      "FN": 85,
-     "secs": 0.0011721809999016841
+     "secs": 0.0009535320000395586
     },
     "Data-only (IND)": {
      "P": 0.7528089887640449,
@@ -339,7 +674,7 @@
      "TP": 67,
      "FP": 22,
      "FN": 35,
-     "secs": 9.99894996199987
+     "secs": 0.11705819000007978
     },
     "Fixed-weight fusion": {
      "P": 0.9358974358974359,
@@ -348,7 +683,7 @@
      "TP": 73,
      "FP": 5,
      "FN": 29,
-     "secs": 0.09559181500003433
+     "secs": 0.11804976299981718
     },
     "Proposed (adaptive)": {
      "P": 0.8787878787878788,
@@ -357,9 +692,46 @@
      "TP": 87,
      "FP": 12,
      "FN": 15,
-     "secs": 0.13769972099998995
+     "secs": 0.12702297599980739
+    },
+    "Proposed without adaptive rule": {
+     "P": 0.9504950495049505,
+     "R": 0.9411764705882353,
+     "F1": 0.9458128078817734,
+     "TP": 96,
+     "FP": 5,
+     "FN": 6,
+     "secs": 0.1778332839999166
+    },
+    "Proposed without specificity": {
+     "P": 0.4235294117647059,
+     "R": 0.7058823529411765,
+     "F1": 0.5294117647058824,
+     "TP": 72,
+     "FP": 98,
+     "FN": 30,
+     "secs": 0.16045577800014144
+    },
+    "Classifier (exact IND)": {
+     "P": 0.7654320987654321,
+     "R": 0.6078431372549019,
+     "F1": 0.6775956284153005,
+     "TP": 62,
+     "FP": 19,
+     "FN": 40,
+     "secs": 1.0362443130002248
+    },
+    "Classifier (partial IND)": {
+     "P": 0.7216494845360825,
+     "R": 0.6862745098039216,
+     "F1": 0.7035175879396985,
+     "TP": 70,
+     "FP": 27,
+     "FN": 32,
+     "secs": 0.4560813389998657
     }
    },
+   "proposed_detected": 99,
    "missed_by_proposed": [
     [
      "catalog_returns",
@@ -528,49 +900,148 @@
    ],
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.5686274509803921,
+     "source_rows": 2596789,
+     "initially_loaded": 2149961,
      "rejected": 446828,
-     "patch_fail": 0,
-     "loaded": 2149961,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 2149961,
+     "altered": 0,
+     "missing": 446828,
+     "exact_strict": 2149961,
+     "Sq": 0.5686274509803921,
      "waves": 24,
      "cycles": 0,
-     "validation_Av": 0.9126984126984127,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 0.9117647058823529,
+     "source_rows": 2596789,
+     "initially_loaded": 2162759,
      "rejected": 434030,
-     "patch_fail": 0,
-     "loaded": 2162759,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 2162759,
+     "altered": 0,
+     "missing": 434030,
+     "exact_strict": 2162759,
+     "Sq": 0.9117647058823529,
      "waves": 3,
      "cycles": 0,
-     "validation_Av": 0.9285714285714286,
-     "speedup4": 1.2854296564846954
+     "speedup4_model": 1.2854296564846954
     },
     "Graph: Proposed": {
-     "Sq": 1.0,
+     "source_rows": 2596789,
+     "initially_loaded": 2596789,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 2596789,
+     "deferred_columns": 5,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 2596789,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 2596789,
+     "Sq": 1.0,
      "waves": 6,
      "cycles": 2,
-     "validation_Av": 1.0,
-     "speedup4": 1.1910974628067141
+     "speedup4_model": 1.1910974628067141
     },
-    "Oracle (declared FKs)": {
-     "Sq": 1.0,
+    "Oracle (true dependencies)": {
+     "source_rows": 2596789,
+     "initially_loaded": 2596789,
      "rejected": 0,
-     "patch_fail": 0,
-     "loaded": 2596789,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 2596789,
+     "altered": 0,
+     "missing": 0,
+     "exact_strict": 2596789,
+     "Sq": 1.0,
      "waves": 4,
      "cycles": 0,
-     "validation_Av": 1.0,
-     "speedup4": 1.1985233472580108
+     "speedup4_model": 1.1985233472580108
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 0,
+     "orphan_rows_flagged_on_true_edges": 0,
+     "orphan_rows_flagged_on_wrong_edges": 669,
+     "wrong_edges_raising_alerts": 5
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 43,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 43,
+      "graph": 43,
+      "audit": 43
+     },
+     "wrong_target": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     },
+     "missed": {
+      "n": 7,
+      "graph": 0,
+      "audit": 7
+     }
+    },
+    "true_dependencies": 102,
+    "recovered_true": 87,
+    "wrong_edges": 12,
+    "missed_dependencies": 15
+   },
+   "cycles": {
+    "true_cycles": 0,
+    "true_cyclic_columns": 0,
+    "recovered_cycles": 2,
+    "recovered_cyclic_columns": 5,
+    "true_cyclic_columns_recovered": 0
    },
    "impact": {
     "mean_Is": 0.14930555555555555,
     "max_Is": 0.5833333333333334
+   },
+   "sampling": {
+    "100": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "secs": 8.478911078999772
+    },
+    "250": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "secs": 9.58036181899979
+    },
+    "1000": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "secs": 8.816312780999851
+    },
+    "5000": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "secs": 9.334092460000193
+    },
+    "all": {
+     "P": 0.8787878787878788,
+     "R": 0.8529411764705882,
+     "F1": 0.8656716417910447,
+     "secs": 13.729646720999881
+    }
    }
   }
  },
@@ -664,6 +1135,94 @@
       "mean": 0,
       "sd": 0.0
      }
+    },
+    "Proposed without adaptive rule": {
+     "P": {
+      "mean": 0.9499061136527444,
+      "sd": 0.057957965208656696
+     },
+     "R": {
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "F1": {
+      "mean": 0.97337133337499,
+      "sd": 0.03157253899457013
+     },
+     "FP": {
+      "mean": 8.4,
+      "sd": 10.287856919689348
+     },
+     "FN": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed without specificity": {
+     "P": {
+      "mean": 0.40898808769774725,
+      "sd": 0.014712314822606865
+     },
+     "R": {
+      "mean": 0.9628110647357715,
+      "sd": 0.019059432096749436
+     },
+     "F1": {
+      "mean": 0.5739270146730249,
+      "sd": 0.015390528257544446
+     },
+     "FP": {
+      "mean": 203,
+      "sd": 8.461678320522472
+     },
+     "FN": {
+      "mean": 5.4,
+      "sd": 2.727636339397171
+     }
+    },
+    "Classifier (exact IND)": {
+     "P": {
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "R": {
+      "mean": 0.10125890490865361,
+      "sd": 0.020525866829486344
+     },
+     "F1": {
+      "mean": 0.1832782975600807,
+      "sd": 0.033178107589838975
+     },
+     "FP": {
+      "mean": 0,
+      "sd": 0.0
+     },
+     "FN": {
+      "mean": 131,
+      "sd": 3.286335345030997
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.99312234293812,
+      "sd": 0.006147418364555309
+     },
+     "R": {
+      "mean": 0.9769365675915396,
+      "sd": 0.010649355636685556
+     },
+     "F1": {
+      "mean": 0.984938032290112,
+      "sd": 0.007228432585188507
+     },
+     "FP": {
+      "mean": 1,
+      "sd": 0.8944271909999159
+     },
+     "FN": {
+      "mean": 3.4,
+      "sd": 1.624807680927192
+     }
     }
    },
    "recall_by_style": {
@@ -690,6 +1249,30 @@
      "abbrev": 1.0,
      "role": 1.0,
      "self": 1.0
+    },
+    "Proposed without adaptive rule": {
+     "clean": 1.0,
+     "abbrev": 1.0,
+     "role": 1.0,
+     "self": 1.0
+    },
+    "Proposed without specificity": {
+     "clean": 1.0,
+     "abbrev": 0.7083333333333334,
+     "role": 0.9047619047619048,
+     "self": 1.0
+    },
+    "Classifier (exact IND)": {
+     "clean": 0.09122203098106713,
+     "abbrev": 0.08333333333333333,
+     "role": 0.06349206349206349,
+     "self": 0.8461538461538461
+    },
+    "Classifier (partial IND)": {
+     "clean": 1.0,
+     "abbrev": 1.0,
+     "role": 0.7301587301587301,
+     "self": 1.0
     }
    },
    "style_counts": {
@@ -698,47 +1281,118 @@
     "role": 63,
     "self": 13
    },
+   "candidates": {
+    "type_compatible_pairs": 21815.8,
+    "candidates_after_blocking": 15572.8
+   },
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.5388465325481192,
+     "source_rows": 21637.2,
+     "initially_loaded": 5006,
      "rejected": 16631.2,
-     "patch_fail": 0,
-     "loaded": 5006,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 5006,
+     "altered": 0,
+     "missing": 16631.2,
+     "exact_strict": 5006,
+     "Sq": 0.5388465325481192,
      "waves": 100,
      "cycles": 0,
-     "validation_Av": 0.6698323030548432,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 0.9780593633941421,
+     "source_rows": 21637.2,
+     "initially_loaded": 16106.8,
      "rejected": 5530.4,
-     "patch_fail": 48.8,
-     "loaded": 16106.8,
+     "deferred_columns": 3.4,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 48.8,
+     "exact": 16058,
+     "altered": 48.8,
+     "missing": 5530.4,
+     "exact_strict": 15192.2,
+     "Sq": 0.9780593633941421,
      "waves": 11,
      "cycles": 2.8,
-     "validation_Av": 0.6779643224511608,
-     "speedup4": 3.5043215209705085
+     "speedup4_model": 3.5043215209705085
     },
     "Graph: Proposed": {
-     "Sq": 0.9891891891891892,
+     "source_rows": 21637.2,
+     "initially_loaded": 17086.2,
      "rejected": 4551,
-     "patch_fail": 48.6,
-     "loaded": 17086.2,
+     "deferred_columns": 6.8,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 48.6,
+     "exact": 17037.6,
+     "altered": 48.6,
+     "missing": 4551,
+     "exact_strict": 15828.6,
+     "Sq": 0.9891891891891892,
      "waves": 11.6,
      "cycles": 3.2,
-     "validation_Av": 0.6819965805156769,
-     "speedup4": 3.4553113813277303
+     "speedup4_model": 3.4553113813277303
     },
-    "Oracle (declared FKs)": {
-     "Sq": 0.9972972972972973,
+    "Oracle (true dependencies)": {
+     "source_rows": 21637.2,
+     "initially_loaded": 16799,
      "rejected": 4838.2,
-     "patch_fail": 48.8,
-     "loaded": 16799,
+     "deferred_columns": 3.4,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 48.8,
+     "exact": 16750.2,
+     "altered": 48.8,
+     "missing": 4838.2,
+     "exact_strict": 15828.6,
+     "Sq": 0.9972972972972973,
      "waves": 11.6,
      "cycles": 2.8,
-     "validation_Av": 0.6779643224511608,
-     "speedup4": 3.4489915003359135
+     "speedup4_model": 3.4489915003359135
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 607.4,
+     "orphan_rows_flagged_on_true_edges": 607.4,
+     "orphan_rows_flagged_on_wrong_edges": 80.6,
+     "wrong_edges_raising_alerts": 5.6
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 50,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 50,
+      "graph": 50,
+      "audit": 50
+     },
+     "wrong_target": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     },
+     "missed": {
+      "n": 0,
+      "graph": 0,
+      "audit": 0
+     }
+    },
+    "true_dependencies": 145.8,
+    "recovered_true": 145.8,
+    "wrong_edges": 5.6,
+    "missed_dependencies": 0
+   },
+   "cycles": {
+    "true_cycles": 2.8,
+    "true_cyclic_columns": 3.4,
+    "recovered_cycles": 3.2,
+    "recovered_cyclic_columns": 6.8,
+    "true_cyclic_columns_recovered": 3.4
    },
    "alpha_sensitivity": {
     "0.0": 0.7401081518638647,
@@ -843,86 +1497,273 @@
       "mean": 18.4,
       "sd": 4.758150901348127
      }
+    },
+    "Proposed without adaptive rule": {
+     "P": {
+      "mean": 0.9205467834069196,
+      "sd": 0.057540633572010294
+     },
+     "R": {
+      "mean": 0.871041460949174,
+      "sd": 0.029149313994052743
+     },
+     "F1": {
+      "mean": 0.8934341928525318,
+      "sd": 0.023330829214102424
+     },
+     "FP": {
+      "mean": 12.2,
+      "sd": 9.6
+     },
+     "FN": {
+      "mean": 20.4,
+      "sd": 5.3516352641038605
+     }
+    },
+    "Proposed without specificity": {
+     "P": {
+      "mean": 0.3527705460718885,
+      "sd": 0.022054673240558535
+     },
+     "R": {
+      "mean": 0.8064663137214553,
+      "sd": 0.04806797572725945
+     },
+     "F1": {
+      "mean": 0.4907484553200119,
+      "sd": 0.02960160354052658
+     },
+     "FP": {
+      "mean": 232.4,
+      "sd": 11.34195750300626
+     },
+     "FN": {
+      "mean": 30.6,
+      "sd": 8.73155198117723
+     }
+    },
+    "Classifier (exact IND)": {
+     "P": {
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "R": {
+      "mean": 0.0809333566360409,
+      "sd": 0.03068247846207762
+     },
+     "F1": {
+      "mean": 0.1482571321592859,
+      "sd": 0.05250565832496936
+     },
+     "FP": {
+      "mean": 0,
+      "sd": 0.0
+     },
+     "FN": {
+      "mean": 144.4,
+      "sd": 8.16333265278342
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9874808973653646,
+      "sd": 0.012504875026340186
+     },
+     "R": {
+      "mean": 0.8379771103767303,
+      "sd": 0.03727986432672603
+     },
+     "F1": {
+      "mean": 0.9062128927091142,
+      "sd": 0.024123001808455023
+     },
+     "FP": {
+      "mean": 1.6,
+      "sd": 1.624807680927192
+     },
+     "FN": {
+      "mean": 25.4,
+      "sd": 5.71314274283428
+     }
     }
    },
    "recall_by_style": {
     "Name-only": {
-     "clean": 1.0,
      "abbrev": 0.4520547945205479,
-     "opaque": 0.0,
      "role": 1.0,
+     "opaque": 0.0,
+     "clean": 1.0,
      "self": 1.0
     },
     "Data-only (IND)": {
-     "clean": 0.529126213592233,
      "abbrev": 0.54337899543379,
-     "opaque": 0.5329341317365269,
      "role": 0.5254237288135594,
+     "opaque": 0.5329341317365269,
+     "clean": 0.529126213592233,
      "self": 0.4117647058823529
     },
     "Fixed-weight fusion": {
-     "clean": 1.0,
      "abbrev": 0.958904109589041,
-     "opaque": 0.059880239520958084,
      "role": 1.0,
+     "opaque": 0.059880239520958084,
+     "clean": 1.0,
      "self": 1.0
     },
     "Proposed (adaptive)": {
-     "clean": 1.0,
      "abbrev": 0.9680365296803652,
-     "opaque": 0.49101796407185627,
      "role": 1.0,
+     "opaque": 0.49101796407185627,
+     "clean": 1.0,
      "self": 1.0
+    },
+    "Proposed without adaptive rule": {
+     "abbrev": 0.9680365296803652,
+     "role": 1.0,
+     "opaque": 0.4311377245508982,
+     "clean": 1.0,
+     "self": 1.0
+    },
+    "Proposed without specificity": {
+     "abbrev": 0.7579908675799086,
+     "role": 0.8587570621468926,
+     "opaque": 0.5508982035928144,
+     "clean": 1.0,
+     "self": 1.0
+    },
+    "Classifier (exact IND)": {
+     "abbrev": 0.0776255707762557,
+     "role": 0.04519774011299435,
+     "opaque": 0.029940119760479042,
+     "clean": 0.09223300970873786,
+     "self": 0.8823529411764706
+    },
+    "Classifier (partial IND)": {
+     "abbrev": 0.9452054794520548,
+     "role": 0.7966101694915254,
+     "opaque": 0.5329341317365269,
+     "clean": 1.0,
+     "self": 0.9411764705882353
     }
    },
    "style_counts": {
-    "clean": 206,
     "abbrev": 219,
-    "opaque": 167,
     "role": 177,
+    "opaque": 167,
+    "clean": 206,
     "self": 17
+   },
+   "candidates": {
+    "type_compatible_pairs": 22368.2,
+    "candidates_after_blocking": 15686.8
    },
    "migration": {
     "No graph (alphabetical)": {
-     "Sq": 0.5133311974859408,
+     "source_rows": 21637.2,
+     "initially_loaded": 4535.6,
      "rejected": 17101.6,
-     "patch_fail": 0,
-     "loaded": 4535.6,
+     "deferred_columns": 0,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 0,
+     "exact": 4535.6,
+     "altered": 0,
+     "missing": 17101.6,
+     "exact_strict": 4535.6,
+     "Sq": 0.5133311974859408,
      "waves": 100,
      "cycles": 0,
-     "validation_Av": 0.680259807636553,
-     "speedup4": 1.0
+     "speedup4_model": 1.0
     },
     "Graph: Name-only": {
-     "Sq": 0.8296341486535945,
+     "source_rows": 21637.2,
+     "initially_loaded": 8244.6,
      "rejected": 13392.6,
-     "patch_fail": 1.8,
-     "loaded": 8244.6,
+     "deferred_columns": 3.4,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 1.8,
+     "exact": 8242.8,
+     "altered": 1.8,
+     "missing": 13392.6,
+     "exact_strict": 8238,
+     "Sq": 0.8296341486535945,
      "waves": 9.4,
      "cycles": 3.4,
-     "validation_Av": 0.6849523848966633,
-     "speedup4": 3.586096030624088
+     "speedup4_model": 3.586096030624088
     },
     "Graph: Proposed": {
-     "Sq": 0.9505075593185481,
+     "source_rows": 21637.2,
+     "initially_loaded": 12897.2,
      "rejected": 8740,
-     "patch_fail": 206.8,
-     "loaded": 12897.2,
+     "deferred_columns": 5.6,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 206.8,
+     "exact": 12690.4,
+     "altered": 206.8,
+     "missing": 8740,
+     "exact_strict": 11907,
+     "Sq": 0.9505075593185481,
      "waves": 11.8,
      "cycles": 4,
-     "validation_Av": 0.6872175526790726,
-     "speedup4": 3.4773471093952315
+     "speedup4_model": 3.4773471093952315
     },
-    "Oracle (declared FKs)": {
-     "Sq": 0.991907514450867,
+    "Oracle (true dependencies)": {
+     "source_rows": 21637.2,
+     "initially_loaded": 17029.6,
      "rejected": 4607.6,
-     "patch_fail": 64.4,
-     "loaded": 17029.6,
+     "deferred_columns": 5.8,
+     "notnull_deferred_columns": 0,
+     "phase2_failures": 64.4,
+     "exact": 16965.2,
+     "altered": 64.4,
+     "missing": 4607.6,
+     "exact_strict": 14467.8,
+     "Sq": 0.991907514450867,
      "waves": 12.8,
      "cycles": 3.6,
-     "validation_Av": 0.6878827878270664,
-     "speedup4": 3.4661707994358264
+     "speedup4_model": 3.4661707994358264
     }
+   },
+   "validation": {
+    "clean": {
+     "missing_rows_flagged": 0,
+     "orphan_rows_true_edges_audit": 663.2,
+     "orphan_rows_flagged_on_true_edges": 574.6,
+     "orphan_rows_flagged_on_wrong_edges": 171,
+     "wrong_edges_raising_alerts": 8
+    },
+    "injected_missing_rows": 50,
+    "missing_detected_graph": 50,
+    "missing_detected_audit": 50,
+    "injected_corruptions": 50,
+    "corruptions_detected_graph": 44.6,
+    "corruptions_detected_audit": 50,
+    "corruptions_by_dependency_status": {
+     "recovered": {
+      "n": 43.8,
+      "graph": 43.8,
+      "audit": 43.8
+     },
+     "wrong_target": {
+      "n": 0.8,
+      "graph": 0.8,
+      "audit": 0.8
+     },
+     "missed": {
+      "n": 5.4,
+      "graph": 0,
+      "audit": 5.4
+     }
+    },
+    "true_dependencies": 157.2,
+    "recovered_true": 138.8,
+    "wrong_edges": 8.2,
+    "missed_dependencies": 18.4
+   },
+   "cycles": {
+    "true_cycles": 3.6,
+    "true_cyclic_columns": 5.8,
+    "recovered_cycles": 4,
+    "recovered_cyclic_columns": 5.6,
+    "true_cyclic_columns_recovered": 4.6
    },
    "alpha_sensitivity": {
     "0.0": 0.7361719156569372,
@@ -939,108 +1780,1417 @@
    }
   }
  },
- "scalability": [
-  {
-   "tables": 50,
-   "columns": 278,
-   "true_deps": 78,
-   "graph_nodes": 328,
-   "graph_edges": 424,
-   "extract_s": 0.01648790499984898,
-   "standardize_s": 0.0009110510000027716,
-   "detect_s": 0.10807735499997762,
-   "graph_s": 0.0013539250001031178,
-   "plan_s": 0.0005573440000716801,
-   "impact100_s": 0.0003413990000353806,
-   "F1": 0.8211920529801324,
-   "waves": 9,
-   "speedup4": 2.9798241076047596,
-   "speedup8": 3.953328757721345
+ "stress": {
+  "Baseline (new seeds)": {
+   "options": {},
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9976470588235294,
+      "sd": 0.00470588235294116
+     },
+     "R": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "F1": {
+      "mean": 0.7727698764801634,
+      "sd": 0.032474167631307185
+     },
+     "R_declared_parents": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.9533980582524272,
+      "sd": 0.09320388349514563
+     },
+     "R": {
+      "mean": 0.4607982229877876,
+      "sd": 0.09348518230294248
+     },
+     "F1": {
+      "mean": 0.6114261985797598,
+      "sd": 0.07724060398330451
+     },
+     "R_declared_parents": {
+      "mean": 0.4607982229877876,
+      "sd": 0.09348518230294248
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.9803701641632676,
+      "sd": 0.02612857325992213
+     },
+     "R": {
+      "mean": 0.7914273597208494,
+      "sd": 0.03181443990107444
+     },
+     "F1": {
+      "mean": 0.8754752205155046,
+      "sd": 0.024788404714178258
+     },
+     "R_declared_parents": {
+      "mean": 0.7914273597208494,
+      "sd": 0.03181443990107444
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.9496723454371794,
+      "sd": 0.05907629742811479
+     },
+     "R": {
+      "mean": 0.8666353272743765,
+      "sd": 0.02549301247874382
+     },
+     "F1": {
+      "mean": 0.9057688767730767,
+      "sd": 0.03899611488761055
+     },
+     "R_declared_parents": {
+      "mean": 0.8666353272743765,
+      "sd": 0.02549301247874382
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9838436866048151,
+      "sd": 0.005827358261681755
+     },
+     "R": {
+      "mean": 0.8075584981557997,
+      "sd": 0.02028738798371547
+     },
+     "F1": {
+      "mean": 0.8868419427462311,
+      "sd": 0.01106067342061258
+     },
+     "R_declared_parents": {
+      "mean": 0.8075584981557997,
+      "sd": 0.02028738798371547
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 0
+   }
   },
-  {
-   "tables": 100,
-   "columns": 563,
-   "true_deps": 163,
-   "graph_nodes": 663,
-   "graph_edges": 857,
-   "extract_s": 0.02987793900001634,
-   "standardize_s": 0.0018040320001091459,
-   "detect_s": 0.46274315400000887,
-   "graph_s": 0.002152441999896837,
-   "plan_s": 0.0007350150001457223,
-   "impact100_s": 0.000661596999862013,
-   "F1": 0.9032258064516129,
-   "waves": 12,
-   "speedup4": 3.479870702321481,
-   "speedup8": 5.437098255280073
+  "Dirty references (10% orphans)": {
+   "options": {
+    "orphan_rate": 0.1
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9976470588235294,
+      "sd": 0.00470588235294116
+     },
+     "R": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "F1": {
+      "mean": 0.7727698764801634,
+      "sd": 0.032474167631307185
+     },
+     "R_declared_parents": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.9442307692307692,
+      "sd": 0.11153846153846154
+     },
+     "R": {
+      "mean": 0.42358372254471616,
+      "sd": 0.08867565436273017
+     },
+     "F1": {
+      "mean": 0.5734865081307561,
+      "sd": 0.07437538229828553
+     },
+     "R_declared_parents": {
+      "mean": 0.42358372254471616,
+      "sd": 0.08867565436273017
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.9813721720544413,
+      "sd": 0.027798862280572004
+     },
+     "R": {
+      "mean": 0.742169356991845,
+      "sd": 0.03846386278449511
+     },
+     "F1": {
+      "mean": 0.8444000881571326,
+      "sd": 0.02602425792624633
+     },
+     "R_declared_parents": {
+      "mean": 0.742169356991845,
+      "sd": 0.03846386278449511
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.9551578116073529,
+      "sd": 0.05809645684786784
+     },
+     "R": {
+      "mean": 0.7488603710076672,
+      "sd": 0.036609513574687294
+     },
+     "F1": {
+      "mean": 0.8382119228010418,
+      "sd": 0.032827889466765625
+     },
+     "R_declared_parents": {
+      "mean": 0.7488603710076672,
+      "sd": 0.036609513574687294
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.970981275075851,
+      "sd": 0.01788899623457876
+     },
+     "R": {
+      "mean": 0.6981725380102028,
+      "sd": 0.03524134270887372
+     },
+     "F1": {
+      "mean": 0.8117806696339159,
+      "sd": 0.02546707204843235
+     },
+     "R_declared_parents": {
+      "mean": 0.6981725380102028,
+      "sd": 0.03524134270887372
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 0
+   }
   },
-  {
-   "tables": 250,
-   "columns": 1373,
-   "true_deps": 373,
-   "graph_nodes": 1623,
-   "graph_edges": 2047,
-   "extract_s": 0.07143946399992274,
-   "standardize_s": 0.011263885000062146,
-   "detect_s": 2.3719857399999,
-   "graph_s": 0.007899295000015627,
-   "plan_s": 0.0016660950000186858,
-   "impact100_s": 0.001299682000080793,
-   "F1": 0.9352112676056339,
-   "waves": 10,
-   "speedup4": 3.9035657571820415,
-   "speedup8": 7.402135231316726
+  "Dirty references (25% orphans)": {
+   "options": {
+    "orphan_rate": 0.25
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9976470588235294,
+      "sd": 0.00470588235294116
+     },
+     "R": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "F1": {
+      "mean": 0.7727698764801634,
+      "sd": 0.032474167631307185
+     },
+     "R_declared_parents": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.9114285714285715,
+      "sd": 0.17714285714285713
+     },
+     "R": {
+      "mean": 0.21305497259375691,
+      "sd": 0.053264089024330954
+     },
+     "F1": {
+      "mean": 0.335608809616399,
+      "sd": 0.06232099311001399
+     },
+     "R_declared_parents": {
+      "mean": 0.21305497259375691,
+      "sd": 0.053264089024330954
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.963840035846309,
+      "sd": 0.06617266953065651
+     },
+     "R": {
+      "mean": 0.5664607802262518,
+      "sd": 0.024345013153210953
+     },
+     "F1": {
+      "mean": 0.7124914162493631,
+      "sd": 0.028381829627748777
+     },
+     "R_declared_parents": {
+      "mean": 0.5664607802262518,
+      "sd": 0.024345013153210953
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.9302737520128824,
+      "sd": 0.12178172367039398
+     },
+     "R": {
+      "mean": 0.567658385016671,
+      "sd": 0.024286337854685144
+     },
+     "F1": {
+      "mean": 0.7014828174794145,
+      "sd": 0.044072870338494316
+     },
+     "R_declared_parents": {
+      "mean": 0.567658385016671,
+      "sd": 0.024286337854685144
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9870873776435666,
+      "sd": 0.011876638554513083
+     },
+     "R": {
+      "mean": 0.5113105268011007,
+      "sd": 0.04584909237709354
+     },
+     "F1": {
+      "mean": 0.6722784302162026,
+      "sd": 0.0382081852886416
+     },
+     "R_declared_parents": {
+      "mean": 0.5113105268011007,
+      "sd": 0.04584909237709354
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 0
+   }
   },
-  {
-   "tables": 500,
-   "columns": 2779,
-   "true_deps": 779,
-   "graph_nodes": 3279,
-   "graph_edges": 4199,
-   "extract_s": 0.14905429000009462,
-   "standardize_s": 0.009352422999882037,
-   "detect_s": 9.184376353000061,
-   "graph_s": 0.010955977000094208,
-   "plan_s": 0.004929559999936828,
-   "impact100_s": 0.00333973200008586,
-   "F1": 0.9214237743451982,
-   "waves": 14,
-   "speedup4": 3.9357100679067023,
-   "speedup8": 7.648974322191938
+  "Sparse references (30% NULL)": {
+   "options": {
+    "null_rate": 0.3
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9976470588235294,
+      "sd": 0.00470588235294116
+     },
+     "R": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "F1": {
+      "mean": 0.7727698764801634,
+      "sd": 0.032474167631307185
+     },
+     "R_declared_parents": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.9533980582524272,
+      "sd": 0.09320388349514563
+     },
+     "R": {
+      "mean": 0.45946488965445426,
+      "sd": 0.09171118382281312
+     },
+     "F1": {
+      "mean": 0.6103624819538689,
+      "sd": 0.07548627259918272
+     },
+     "R_declared_parents": {
+      "mean": 0.45946488965445426,
+      "sd": 0.09171118382281312
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.980153421122751,
+      "sd": 0.02628572461975059
+     },
+     "R": {
+      "mean": 0.7804687333433218,
+      "sd": 0.037727478120103804
+     },
+     "F1": {
+      "mean": 0.8684682244437485,
+      "sd": 0.02746344653804627
+     },
+     "R_declared_parents": {
+      "mean": 0.7804687333433218,
+      "sd": 0.037727478120103804
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.9581183113183113,
+      "sd": 0.06098541096086493
+     },
+     "R": {
+      "mean": 0.8650996496446057,
+      "sd": 0.03088797444698843
+     },
+     "F1": {
+      "mean": 0.9086586498533494,
+      "sd": 0.041139364817427394
+     },
+     "R_declared_parents": {
+      "mean": 0.8650996496446057,
+      "sd": 0.03088797444698843
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9865998474446986,
+      "sd": 0.012063294390000819
+     },
+     "R": {
+      "mean": 0.805456076775678,
+      "sd": 0.019988820945798687
+     },
+     "F1": {
+      "mean": 0.8866808938215782,
+      "sd": 0.012367832543021996
+     },
+     "R_declared_parents": {
+      "mean": 0.805456076775678,
+      "sd": 0.019988820945798687
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 0
+   }
   },
-  {
-   "tables": 1000,
-   "columns": 5568,
-   "true_deps": 1568,
-   "graph_nodes": 6568,
-   "graph_edges": 8402,
-   "extract_s": 0.301138771000069,
-   "standardize_s": 0.05915151599992896,
-   "detect_s": 38.14663614799997,
-   "graph_s": 0.021214964999899166,
-   "plan_s": 0.008064303000082873,
-   "impact100_s": 0.006381417000056899,
-   "F1": 0.9172529313232831,
-   "waves": 25,
-   "speedup4": 3.950836326693516,
-   "speedup8": 7.698055850123719
+  "Ambiguous keys (all integer)": {
+   "options": {
+    "string_key_frac": 0.0
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9901322280239806,
+      "sd": 0.006342970819271493
+     },
+     "R": {
+      "mean": 0.6211300678374313,
+      "sd": 0.01429698044194161
+     },
+     "F1": {
+      "mean": 0.7632783035364075,
+      "sd": 0.010932082730556968
+     },
+     "R_declared_parents": {
+      "mean": 0.6211300678374313,
+      "sd": 0.01429698044194161
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "R": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "F1": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "R_declared_parents": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.9513048675452508,
+      "sd": 0.03444631373242048
+     },
+     "R": {
+      "mean": 0.767412803182364,
+      "sd": 0.013939719127982165
+     },
+     "F1": {
+      "mean": 0.8491574990572409,
+      "sd": 0.016130564629718125
+     },
+     "R_declared_parents": {
+      "mean": 0.767412803182364,
+      "sd": 0.013939719127982165
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.8252954369918982,
+      "sd": 0.06533379988169401
+     },
+     "R": {
+      "mean": 0.7713221800322443,
+      "sd": 0.016592848977528083
+     },
+     "F1": {
+      "mean": 0.796348979717514,
+      "sd": 0.033709445541453005
+     },
+     "R_declared_parents": {
+      "mean": 0.7713221800322443,
+      "sd": 0.016592848977528083
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.8794912401162144,
+      "sd": 0.1258038633824165
+     },
+     "R": {
+      "mean": 0.6329241467340477,
+      "sd": 0.015090731092516314
+     },
+     "F1": {
+      "mean": 0.7305674979033403,
+      "sd": 0.04326251419800617
+     },
+     "R_declared_parents": {
+      "mean": 0.6329241467340477,
+      "sd": 0.015090731092516314
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 159.8,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 0
+   }
   },
-  {
-   "tables": 2000,
-   "columns": 11167,
-   "true_deps": 3167,
-   "graph_nodes": 13167,
-   "graph_edges": 16895,
-   "extract_s": 0.6007327170000281,
-   "standardize_s": 0.04598002600005202,
-   "detect_s": 167.171688549,
-   "graph_s": 0.057399985999836645,
-   "plan_s": 0.025832853000110845,
-   "impact100_s": 0.030453128999852197,
-   "F1": 0.8990217211076107,
-   "waves": 27,
-   "speedup4": 3.9634177307022633,
-   "speedup8": 7.827739370276176
+  "Missing primary keys (20% of tables)": {
+   "options": {
+    "missing_pk_frac": 0.2
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9972602739726028,
+      "sd": 0.005479452054794542
+     },
+     "R": {
+      "mean": 0.5289687566722653,
+      "sd": 0.053168778140802564
+     },
+     "F1": {
+      "mean": 0.6897359425638762,
+      "sd": 0.045549031234988
+     },
+     "R_declared_parents": {
+      "mean": 0.6395703155870499,
+      "sd": 0.043288349078808575
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.838810395240512,
+      "sd": 0.08431806460936395
+     },
+     "R": {
+      "mean": 0.36793931975799443,
+      "sd": 0.11195105348720523
+     },
+     "F1": {
+      "mean": 0.49837011942275106,
+      "sd": 0.10378455318250446
+     },
+     "R_declared_parents": {
+      "mean": 0.4436289327643283,
+      "sd": 0.12394488279755096
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.9350232958114567,
+      "sd": 0.027000607591995383
+     },
+     "R": {
+      "mean": 0.6568017627042697,
+      "sd": 0.055392775890334936
+     },
+     "F1": {
+      "mean": 0.770783693128064,
+      "sd": 0.045212419743053796
+     },
+     "R_declared_parents": {
+      "mean": 0.7943363803201531,
+      "sd": 0.03680044448261993
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.8737967605819826,
+      "sd": 0.06975816969224491
+     },
+     "R": {
+      "mean": 0.716389355390412,
+      "sd": 0.06464049979470571
+     },
+     "F1": {
+      "mean": 0.7869608862741928,
+      "sd": 0.06537718000960811
+     },
+     "R_declared_parents": {
+      "mean": 0.8658390217372215,
+      "sd": 0.03855713876595434
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9649302646119559,
+      "sd": 0.017490820986237436
+     },
+     "R": {
+      "mean": 0.6592926624350427,
+      "sd": 0.0531011037354467
+     },
+     "F1": {
+      "mean": 0.782361127935869,
+      "sd": 0.04138696749064919
+     },
+     "R_declared_parents": {
+      "mean": 0.7976393508030172,
+      "sd": 0.03808489053681715
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed + key inference": {
+     "P": {
+      "mean": 0.9496391779413254,
+      "sd": 0.05906055320198873
+     },
+     "R": {
+      "mean": 0.8653019939410432,
+      "sd": 0.024927207406449884
+     },
+     "F1": {
+      "mean": 0.905012761131861,
+      "sd": 0.03862527845383175
+     },
+     "R_declared_parents": {
+      "mean": 0.8611280464380109,
+      "sd": 0.035643173097641284
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 26.8,
+    "composite_deps": 0
+   }
+  },
+  "Composite keys (15 composite parents)": {
+   "options": {
+    "composite_frac": 0.15
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9976470588235294,
+      "sd": 0.00470588235294116
+     },
+     "R": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "F1": {
+      "mean": 0.7727698764801634,
+      "sd": 0.032474167631307185
+     },
+     "R_declared_parents": {
+      "mean": 0.6316709181747392,
+      "sd": 0.04332889406782078
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.9272401811884208,
+      "sd": 0.10274035441108438
+     },
+     "R": {
+      "mean": 0.4607982229877876,
+      "sd": 0.09348518230294248
+     },
+     "F1": {
+      "mean": 0.604292629091244,
+      "sd": 0.07199162075480825
+     },
+     "R_declared_parents": {
+      "mean": 0.4607982229877876,
+      "sd": 0.09348518230294248
+     },
+     "FP_on_composite_columns": {
+      "mean": 0.6,
+      "sd": 0.8
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.9790530415695493,
+      "sd": 0.028741818979576755
+     },
+     "R": {
+      "mean": 0.7914273597208494,
+      "sd": 0.03181443990107444
+     },
+     "F1": {
+      "mean": 0.8749252818548168,
+      "sd": 0.025438118736817002
+     },
+     "R_declared_parents": {
+      "mean": 0.7914273597208494,
+      "sd": 0.03181443990107444
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.9414243346580822,
+      "sd": 0.062468188764627196
+     },
+     "R": {
+      "mean": 0.8666353272743765,
+      "sd": 0.02549301247874382
+     },
+     "F1": {
+      "mean": 0.9018689807530478,
+      "sd": 0.04025054772599977
+     },
+     "R_declared_parents": {
+      "mean": 0.8666353272743765,
+      "sd": 0.02549301247874382
+     },
+     "FP_on_composite_columns": {
+      "mean": 0.4,
+      "sd": 0.8
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.9686835049530426,
+      "sd": 0.00837427048070086
+     },
+     "R": {
+      "mean": 0.8075584981557997,
+      "sd": 0.02028738798371547
+     },
+     "F1": {
+      "mean": 0.880610353273231,
+      "sd": 0.010802868650351412
+     },
+     "R_declared_parents": {
+      "mean": 0.8075584981557997,
+      "sd": 0.02028738798371547
+     },
+     "FP_on_composite_columns": {
+      "mean": 0.8,
+      "sd": 0.7483314773547883
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 153.6,
+    "deps_to_undeclared_pk": 0,
+    "composite_deps": 29.6
+   }
+  },
+  "Combined": {
+   "options": {
+    "orphan_rate": 0.1,
+    "null_rate": 0.3,
+    "string_key_frac": 0.0,
+    "missing_pk_frac": 0.2,
+    "composite_frac": 0.15
+   },
+   "detection": {
+    "Name-only": {
+     "P": {
+      "mean": 0.9882536163023968,
+      "sd": 0.007217841597955663
+     },
+     "R": {
+      "mean": 0.5150215521996164,
+      "sd": 0.022689702112443155
+     },
+     "F1": {
+      "mean": 0.6768111314935511,
+      "sd": 0.018998473123155835
+     },
+     "R_declared_parents": {
+      "mean": 0.6298668266391574,
+      "sd": 0.02134933773551355
+     },
+     "FP_on_composite_columns": {
+      "mean": 0,
+      "sd": 0.0
+     }
+    },
+    "Data-only (IND)": {
+     "P": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "R": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "F1": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "R_declared_parents": {
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "FP_on_composite_columns": {
+      "mean": 0.8,
+      "sd": 1.1661903789690602
+     }
+    },
+    "Fixed-weight fusion": {
+     "P": {
+      "mean": 0.7965012695003214,
+      "sd": 0.044061199650182604
+     },
+     "R": {
+      "mean": 0.6248258779956316,
+      "sd": 0.02960536508512888
+     },
+     "F1": {
+      "mean": 0.6994002501853374,
+      "sd": 0.025636823699976396
+     },
+     "R_declared_parents": {
+      "mean": 0.7639768176936551,
+      "sd": 0.023435965918592077
+     },
+     "FP_on_composite_columns": {
+      "mean": 0.2,
+      "sd": 0.4
+     }
+    },
+    "Proposed (adaptive)": {
+     "P": {
+      "mean": 0.6605014802507063,
+      "sd": 0.05107383993796236
+     },
+     "R": {
+      "mean": 0.6287153185782202,
+      "sd": 0.0274033812617368
+     },
+     "F1": {
+      "mean": 0.642853276864135,
+      "sd": 0.025162830336299007
+     },
+     "R_declared_parents": {
+      "mean": 0.7688058938151445,
+      "sd": 0.02170768254431257
+     },
+     "FP_on_composite_columns": {
+      "mean": 1.4,
+      "sd": 1.8547236990991407
+     }
+    },
+    "Classifier (partial IND)": {
+     "P": {
+      "mean": 0.6930699663662444,
+      "sd": 0.11439294349115695
+     },
+     "R": {
+      "mean": 0.4161201507320754,
+      "sd": 0.022423641205618353
+     },
+     "F1": {
+      "mean": 0.515097908267102,
+      "sd": 0.035861197771041596
+     },
+     "R_declared_parents": {
+      "mean": 0.508838199786205,
+      "sd": 0.02148567342149182
+     },
+     "FP_on_composite_columns": {
+      "mean": 2.4,
+      "sd": 1.3564659966250536
+     }
+    },
+    "Proposed + key inference": {
+     "P": {
+      "mean": 0.7923689342269872,
+      "sd": 0.07509922766013549
+     },
+     "R": {
+      "mean": 0.7503008621487985,
+      "sd": 0.016572743529967602
+     },
+     "F1": {
+      "mean": 0.7691799471471159,
+      "sd": 0.03691710907470428
+     },
+     "R_declared_parents": {
+      "mean": 0.7672555062182453,
+      "sd": 0.024108420044606168
+     },
+     "FP_on_composite_columns": {
+      "mean": 1.4,
+      "sd": 1.8547236990991407
+     }
+    }
+   },
+   "ground_truth": {
+    "single_column_deps": 159.8,
+    "deps_to_undeclared_pk": 29.2,
+    "composite_deps": 29.6
+   }
   }
- ]
+ },
+ "scalability": {
+  "repetitions": 3,
+  "rows": [
+   {
+    "tables": 50,
+    "columns": 278,
+    "rows": 5760,
+    "true_deps": 78,
+    "type_compatible_pairs": 6024,
+    "candidates_after_blocking": 4230,
+    "graph_nodes": 328,
+    "graph_edges": 424,
+    "F1": 0.8211920529801324,
+    "waves": 9,
+    "speedup4_model": 2.9798241076047596,
+    "speedup8_model": 3.953328757721345,
+    "extract_s": {
+     "median": 0.02655012800005352,
+     "min": 0.022397160999844345,
+     "max": 0.02761584900008529,
+     "all": [
+      0.02761584900008529,
+      0.02655012800005352,
+      0.022397160999844345
+     ]
+    },
+    "standardize_s": {
+     "median": 0.0010261450001962658,
+     "min": 0.0009964149999177607,
+     "max": 0.0010737370002971147,
+     "all": [
+      0.0009964149999177607,
+      0.0010261450001962658,
+      0.0010737370002971147
+     ]
+    },
+    "detect_s": {
+     "median": 0.1221423799997865,
+     "min": 0.1112121669998487,
+     "max": 0.1252094239998769,
+     "all": [
+      0.1252094239998769,
+      0.1221423799997865,
+      0.1112121669998487
+     ]
+    },
+    "graph_s": {
+     "median": 0.0011925520002478152,
+     "min": 0.0011151399999107525,
+     "max": 0.0012431870000000345,
+     "all": [
+      0.0011925520002478152,
+      0.0012431870000000345,
+      0.0011151399999107525
+     ]
+    },
+    "plan_s": {
+     "median": 0.00043422600037956727,
+     "min": 0.0004202650002298469,
+     "max": 0.0005656949997501215,
+     "all": [
+      0.0005656949997501215,
+      0.00043422600037956727,
+      0.0004202650002298469
+     ]
+    }
+   },
+   {
+    "tables": 100,
+    "columns": 563,
+    "rows": 11842,
+    "true_deps": 163,
+    "type_compatible_pairs": 24047,
+    "candidates_after_blocking": 17642,
+    "graph_nodes": 663,
+    "graph_edges": 857,
+    "F1": 0.9032258064516129,
+    "waves": 12,
+    "speedup4_model": 3.479870702321481,
+    "speedup8_model": 5.437098255280073,
+    "extract_s": {
+     "median": 0.04646626300018397,
+     "min": 0.04253533499968398,
+     "max": 0.0480160550000619,
+     "all": [
+      0.0480160550000619,
+      0.04253533499968398,
+      0.04646626300018397
+     ]
+    },
+    "standardize_s": {
+     "median": 0.002028867000262835,
+     "min": 0.0019784969999818713,
+     "max": 0.0029205320001892687,
+     "all": [
+      0.0019784969999818713,
+      0.002028867000262835,
+      0.0029205320001892687
+     ]
+    },
+    "detect_s": {
+     "median": 0.5273967909997737,
+     "min": 0.4844960729997183,
+     "max": 0.5806393640000351,
+     "all": [
+      0.5273967909997737,
+      0.5806393640000351,
+      0.4844960729997183
+     ]
+    },
+    "graph_s": {
+     "median": 0.002328306999970664,
+     "min": 0.002188555000429915,
+     "max": 0.002420523000182584,
+     "all": [
+      0.002188555000429915,
+      0.002328306999970664,
+      0.002420523000182584
+     ]
+    },
+    "plan_s": {
+     "median": 0.000754508999762038,
+     "min": 0.0007254510001075687,
+     "max": 0.0008102079996206157,
+     "all": [
+      0.0008102079996206157,
+      0.000754508999762038,
+      0.0007254510001075687
+     ]
+    }
+   },
+   {
+    "tables": 250,
+    "columns": 1373,
+    "rows": 27040,
+    "true_deps": 373,
+    "type_compatible_pairs": 136001,
+    "candidates_after_blocking": 93374,
+    "graph_nodes": 1623,
+    "graph_edges": 2047,
+    "F1": 0.9352112676056339,
+    "waves": 10,
+    "speedup4_model": 3.9035657571820415,
+    "speedup8_model": 7.402135231316726,
+    "extract_s": {
+     "median": 0.12089870099998734,
+     "min": 0.11138335099985852,
+     "max": 0.13630177100003493,
+     "all": [
+      0.13630177100003493,
+      0.11138335099985852,
+      0.12089870099998734
+     ]
+    },
+    "standardize_s": {
+     "median": 0.0063196119999702205,
+     "min": 0.005305735000092682,
+     "max": 0.00819882800033156,
+     "all": [
+      0.0063196119999702205,
+      0.005305735000092682,
+      0.00819882800033156
+     ]
+    },
+    "detect_s": {
+     "median": 2.742103079000117,
+     "min": 2.5449099059997025,
+     "max": 3.047216045999903,
+     "all": [
+      3.047216045999903,
+      2.742103079000117,
+      2.5449099059997025
+     ]
+    },
+    "graph_s": {
+     "median": 0.006035407999661402,
+     "min": 0.00584319300014613,
+     "max": 0.007658039000034478,
+     "all": [
+      0.00584319300014613,
+      0.006035407999661402,
+      0.007658039000034478
+     ]
+    },
+    "plan_s": {
+     "median": 0.0019059239998568955,
+     "min": 0.0017421540001123503,
+     "max": 0.0019269379999968805,
+     "all": [
+      0.0019059239998568955,
+      0.0019269379999968805,
+      0.0017421540001123503
+     ]
+    }
+   },
+   {
+    "tables": 500,
+    "columns": 2779,
+    "rows": 53321,
+    "true_deps": 779,
+    "type_compatible_pairs": 556439,
+    "candidates_after_blocking": 382250,
+    "graph_nodes": 3279,
+    "graph_edges": 4199,
+    "F1": 0.9214237743451982,
+    "waves": 14,
+    "speedup4_model": 3.9357100679067023,
+    "speedup8_model": 7.648974322191938,
+    "extract_s": {
+     "median": 0.2366423759999634,
+     "min": 0.21276274199999534,
+     "max": 0.27804699700027413,
+     "all": [
+      0.27804699700027413,
+      0.2366423759999634,
+      0.21276274199999534
+     ]
+    },
+    "standardize_s": {
+     "median": 0.01415837400008968,
+     "min": 0.012378988999898866,
+     "max": 0.02205158600008872,
+     "all": [
+      0.012378988999898866,
+      0.01415837400008968,
+      0.02205158600008872
+     ]
+    },
+    "detect_s": {
+     "median": 11.772513436999816,
+     "min": 11.384798494999814,
+     "max": 12.142186005999974,
+     "all": [
+      11.772513436999816,
+      12.142186005999974,
+      11.384798494999814
+     ]
+    },
+    "graph_s": {
+     "median": 0.013779706000150327,
+     "min": 0.012806539999928646,
+     "max": 0.015431650000209629,
+     "all": [
+      0.015431650000209629,
+      0.012806539999928646,
+      0.013779706000150327
+     ]
+    },
+    "plan_s": {
+     "median": 0.0050867830000242975,
+     "min": 0.003777875000196218,
+     "max": 0.005383760999848164,
+     "all": [
+      0.0050867830000242975,
+      0.003777875000196218,
+      0.005383760999848164
+     ]
+    }
+   },
+   {
+    "tables": 1000,
+    "columns": 5568,
+    "rows": 108889,
+    "true_deps": 1568,
+    "type_compatible_pairs": 2249296,
+    "candidates_after_blocking": 1540523,
+    "graph_nodes": 6568,
+    "graph_edges": 8402,
+    "F1": 0.9172529313232831,
+    "waves": 25,
+    "speedup4_model": 3.950836326693516,
+    "speedup8_model": 7.698055850123719,
+    "extract_s": {
+     "median": 0.5023734790001981,
+     "min": 0.4892037449999407,
+     "max": 0.674469479000436,
+     "all": [
+      0.674469479000436,
+      0.5023734790001981,
+      0.4892037449999407
+     ]
+    },
+    "standardize_s": {
+     "median": 0.049348715000178345,
+     "min": 0.042733530000077735,
+     "max": 0.056353792999743746,
+     "all": [
+      0.056353792999743746,
+      0.042733530000077735,
+      0.049348715000178345
+     ]
+    },
+    "detect_s": {
+     "median": 45.70948358099986,
+     "min": 43.32660596300002,
+     "max": 46.54298443499965,
+     "all": [
+      45.70948358099986,
+      46.54298443499965,
+      43.32660596300002
+     ]
+    },
+    "graph_s": {
+     "median": 0.027172637999683502,
+     "min": 0.025150128999939625,
+     "max": 0.0300288560001718,
+     "all": [
+      0.0300288560001718,
+      0.025150128999939625,
+      0.027172637999683502
+     ]
+    },
+    "plan_s": {
+     "median": 0.009007767000184685,
+     "min": 0.00835900300035064,
+     "max": 0.009513123000033374,
+     "all": [
+      0.009513123000033374,
+      0.00835900300035064,
+      0.009007767000184685
+     ]
+    }
+   },
+   {
+    "tables": 2000,
+    "columns": 11167,
+    "rows": 218527,
+    "true_deps": 3167,
+    "type_compatible_pairs": 9026096,
+    "candidates_after_blocking": 6183756,
+    "graph_nodes": 13167,
+    "graph_edges": 16895,
+    "F1": 0.8990217211076107,
+    "waves": 27,
+    "speedup4_model": 3.9634177307022633,
+    "speedup8_model": 7.827739370276176,
+    "extract_s": {
+     "median": 1.084387064999646,
+     "min": 1.0142773959996703,
+     "max": 1.124383989999842,
+     "all": [
+      1.124383989999842,
+      1.084387064999646,
+      1.0142773959996703
+     ]
+    },
+    "standardize_s": {
+     "median": 0.05102035700019769,
+     "min": 0.04643725899995843,
+     "max": 0.05756536400031109,
+     "all": [
+      0.04643725899995843,
+      0.05102035700019769,
+      0.05756536400031109
+     ]
+    },
+    "detect_s": {
+     "median": 176.8269992569999,
+     "min": 174.31299965100015,
+     "max": 184.29416895099985,
+     "all": [
+      184.29416895099985,
+      174.31299965100015,
+      176.8269992569999
+     ]
+    },
+    "graph_s": {
+     "median": 0.0623306769998635,
+     "min": 0.05907974199999444,
+     "max": 0.32233594400031507,
+     "all": [
+      0.32233594400031507,
+      0.05907974199999444,
+      0.0623306769998635
+     ]
+    },
+    "plan_s": {
+     "median": 0.018269724000219867,
+     "min": 0.01449704099968585,
+     "max": 0.3019154769999659,
+     "all": [
+      0.01449704099968585,
+      0.3019154769999659,
+      0.018269724000219867
+     ]
+    }
+   }
+  ]
+ }
 }

@@ -93,6 +93,8 @@ def migration(conn, md, T, deps):
     for name, pl in plans.items():
         tgt, stt = K.migrate(conn, md, pl, T)
         fs = K.final_state(conn, tgt, md)
+        K.strict_cleanup(tgt, md, T, stt["failed_keys"])
+        fs["exact_strict"] = K.final_state(conn, tgt, md)["exact"]
         res[name] = {"source_rows": stt["loaded"] + stt["rejected"],
                      "initially_loaded": stt["loaded"], "rejected": stt["rejected"],
                      "deferred_columns": len(pl["deferred"]),
@@ -222,6 +224,7 @@ for nm, f in PUBLIC.items():
     if nm == "TPC-DS":   # E7 sampling sensitivity on the dataset with large columns
         r["sampling"] = {}
         for smp in [100, 250, 1000, 5000, None]:
+            md["_cands"].pop(smp, None)          # time candidate generation too, not a cached result
             t0 = time.perf_counter(); d = K.detect(md, **ADAPT, sample=smp); dt = time.perf_counter() - t0
             Pp, R, F, *_ = K.prf(d, T)
             r["sampling"][str(smp or "all")] = {"P": Pp, "R": R, "F1": F, "secs": dt}
