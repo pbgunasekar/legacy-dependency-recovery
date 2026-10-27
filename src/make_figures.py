@@ -108,7 +108,7 @@ L += ["\n## Table 2. Recall by naming style (SynthLegacy-100)\n",
       "| Method | " + " | ".join(styles + ["self"]) + " |", "|---|" + "---|" * 5]
 for m in METHODS:
     L.append(f"| {m} | " + " | ".join(f"{rb[m][s]:.2f}" for s in styles + ["self"]) + " |")
-L.append("\nDependencies per style (5 seeds): " + ", ".join(f"{k}={v}" for k, v in R["synthetic"]["SynthLegacy-100"]["style_counts"].items()))
+L.append("\nDependencies per style (5 seeds): " + ", ".join(f"{k}={R['synthetic']['SynthLegacy-100']['style_counts'][k]}" for k in styles + ["self"]))
 L += ["\n## Table 3. Migration execution (target with FK constraints enforced)\n",
       "| Schema | Plan | Ordering score Sq | Rows loaded | Rows rejected | Waves | Cycles | Speedup (4 workers, model) |",
       "|---|---|---|---|---|---|---|---|"]
