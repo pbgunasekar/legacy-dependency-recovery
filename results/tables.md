@@ -40,7 +40,7 @@ TPC-DS ground truth: tpcds_ri.sql (2 invalid definitions excluded). Proposed-met
 | Fixed-weight fusion | 1.00 | 1.00 | 0.96 | 0.06 | 1.00 |
 | Proposed (adaptive) | 1.00 | 1.00 | 0.97 | 0.49 | 1.00 |
 
-Dependencies per style (5 seeds): clean=206, abbrev=219, opaque=167, role=177, self=17
+Dependencies per style (5 seeds): clean=206, role=177, abbrev=219, opaque=167, self=17
 
 ## Table 3. Migration execution (target with FK constraints enforced)
 

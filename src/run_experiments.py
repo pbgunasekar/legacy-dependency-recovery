@@ -44,6 +44,9 @@ def migration_rows(conn, md, T, deps_by_method):
 
 # ---------------- E1 / E3: public schemas
 out["public"] = {}
+missing = [f for f in PUBLIC.values() if not os.path.exists(os.path.join(ROOT, "schemas", f))]
+if missing:
+    sys.exit(f"Missing {missing}: run src/fetch_data.py and src/build_tpcds.py first.")
 for nm, f in PUBLIC.items():
     conn = sqlite3.connect(os.path.join(ROOT, "schemas", f))
     md = K.standardize(K.extract(conn)); T = md["fks"]
