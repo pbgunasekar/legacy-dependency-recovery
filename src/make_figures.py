@@ -27,11 +27,13 @@ def grouped(ax, groups, series, values, ylim=(0, 1.05), fmt="{:.2f}"):
     ax.set_xticks(range(len(groups))); ax.set_xticklabels(groups); ax.set_ylim(*ylim)
 
 # Fig A: detection F1 across all schema sets
-groups = ["Chinook", "Northwind", "Sakila", "Synthetic\nmodern", "Synthetic\nlegacy"]
+PUB = ["Chinook", "Northwind", "Sakila", "TPC-DS"]
+SYN = ["SynthModern-100", "SynthLegacy-100"]
+groups = PUB + [g.replace("-", "-\n", 1) for g in SYN]
 vals = []
 for m in METHODS:
-    row = [R["public"][g]["detection"][m]["F1"] for g in ["Chinook", "Northwind", "Sakila"]]
-    row += [R["synthetic"][p]["detection"][m]["F1"]["mean"] for p in ["modern", "legacy"]]
+    row = [R["public"][g]["detection"][m]["F1"] for g in PUB]
+    row += [R["synthetic"][p]["detection"][m]["F1"]["mean"] for p in SYN]
     vals.append(row)
 fig, ax = plt.subplots(figsize=(7.2, 3.2)); grouped(ax, groups, METHODS, vals)
 style(ax, "F1 (undeclared dependency recovery)")
@@ -40,7 +42,7 @@ fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig_detection_f1.png"), dpi=3
 
 # Fig B: recall by naming style (legacy profile)
 styles = ["clean", "role", "abbrev", "opaque"]
-rb = R["synthetic"]["legacy"]["recall_by_style"]
+rb = R["synthetic"]["SynthLegacy-100"]["recall_by_style"]
 vals = [[rb[m][s] for s in styles] for m in METHODS]
 fig, ax = plt.subplots(figsize=(7.2, 3.0))
 grouped(ax, ["Clean\n(CUST_NO)", "Role-qualified\n(OWNER_CUST_NO)", "Abbreviated\n(CST_NO)", "Opaque\n(XREF_CD3)"], METHODS, vals)
@@ -50,13 +52,13 @@ fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig_recall_by_style.png"), dp
 # Fig C: rows successfully loaded under each migration plan
 plans = ["No graph (alphabetical)", "Graph: Name-only", "Graph: Proposed", "Oracle (declared FKs)"]
 labels = ["No graph", "Graph (name-only)", "Graph (proposed)", "Oracle (true FKs)"]
-groups = ["Chinook", "Northwind", "Synthetic\nlegacy"]
+groups = ["Chinook", "Northwind", "TPC-DS", "SynthLegacy-\n100"]
 vals = []
 for p in plans:
     row = []
-    for g in ["Chinook", "Northwind"]:
+    for g in ["Chinook", "Northwind", "TPC-DS"]:
         m = R["public"][g]["migration"][p]; row.append(m["loaded"] / (m["loaded"] + m["rejected"]))
-    m = R["synthetic"]["legacy"]["migration"][p]; row.append(m["loaded"] / (m["loaded"] + m["rejected"]))
+    m = R["synthetic"]["SynthLegacy-100"]["migration"][p]; row.append(m["loaded"] / (m["loaded"] + m["rejected"]))
     vals.append(row)
 fig, ax = plt.subplots(figsize=(7.2, 3.0)); grouped(ax, groups, labels, vals, fmt="{:.0%}")
 style(ax, "Rows loaded (FK-enforced target)")
@@ -76,10 +78,9 @@ fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig_scalability.png"), dpi=30
 
 # Fig E: alpha sensitivity (legacy + modern), two series
 fig, ax = plt.subplots(figsize=(3.5, 2.8))
-for i, p in enumerate(["modern", "legacy"]):
+for i, p in enumerate(SYN):
     a = R["synthetic"][p]["alpha_sensitivity"]; xs = [float(k) for k in a]; ys = list(a.values())
-    ax.plot(xs, ys, color=C[i], lw=2, marker="o", ms=4, label=f"Synthetic {p}")
-    ax.text(xs[-1] + 0.02, ys[-1], p, fontsize=7, color=MUTED, va="center")
+    ax.plot(xs, ys, color=C[i], lw=2, marker="o", ms=4, label=p)
 ax.axvline(R["params"]["adaptive"]["alpha"], color=MUTED, lw=0.8, ls="--")
 ax.set_xlabel("α (weight on name evidence)"); style(ax, "F1"); ax.set_ylim(0.6, 1.02)
 ax.legend(frameon=False, fontsize=7, loc="lower right")
@@ -88,33 +89,36 @@ fig.tight_layout(); fig.savefig(os.path.join(OUT, "fig_alpha_sensitivity.png"), 
 # Tables (Markdown)
 L = ["# Results tables\n", "## Table 1. Undeclared-dependency detection (all FK constraints hidden)\n",
      "| Schema set | Method | Precision | Recall | F1 |", "|---|---|---|---|---|"]
-for g in ["Chinook", "Northwind", "Sakila"]:
+for g in PUB:
     for m in METHODS:
         d = R["public"][g]["detection"][m]
         L.append(f"| {g} ({R['public'][g]['true_deps']} deps) | {m} | {d['P']:.3f} | {d['R']:.3f} | {d['F1']:.3f} |")
-for p in ["modern", "legacy"]:
+for p in SYN:
     for m in METHODS:
         d = R["synthetic"][p]["detection"][m]
-        L.append(f"| Synthetic {p} (5×100 tables) | {m} | {d['P']['mean']:.3f} ± {d['P']['sd']:.3f} | "
+        L.append(f"| {p} (5 seeds) | {m} | {d['P']['mean']:.3f} ± {d['P']['sd']:.3f} | "
                  f"{d['R']['mean']:.3f} ± {d['R']['sd']:.3f} | {d['F1']['mean']:.3f} ± {d['F1']['sd']:.3f} |")
-L += ["\n## Table 2. Recall by naming style (synthetic legacy)\n",
+tp = R["public"]["TPC-DS"]
+L.append("\nTPC-DS ground truth: tpcds_ri.sql (2 invalid definitions excluded). Proposed-method detections not in that file: "
+         + "; ".join(f"{a}.{b} → {c}.{d}" for a, b, c, d in tp["fp_by_proposed"]))
+L += ["\n## Table 2. Recall by naming style (SynthLegacy-100)\n",
       "| Method | " + " | ".join(styles + ["self"]) + " |", "|---|" + "---|" * 5]
 for m in METHODS:
     L.append(f"| {m} | " + " | ".join(f"{rb[m][s]:.2f}" for s in styles + ["self"]) + " |")
-L.append("\nDependencies per style (5 seeds): " + ", ".join(f"{k}={v}" for k, v in R["synthetic"]["legacy"]["style_counts"].items()))
+L.append("\nDependencies per style (5 seeds): " + ", ".join(f"{k}={v}" for k, v in R["synthetic"]["SynthLegacy-100"]["style_counts"].items()))
 L += ["\n## Table 3. Migration execution (target with FK constraints enforced)\n",
       "| Schema | Plan | Ordering score Sq | Rows loaded | Rows rejected | Waves | Cycles | Speedup (4 workers, model) |",
       "|---|---|---|---|---|---|---|---|"]
-for g in ["Chinook", "Northwind", "Sakila"]:
+for g in PUB:
     for p in plans:
         m = R["public"][g]["migration"][p]
         L.append(f"| {g} | {p} | {m['Sq']:.3f} | {m['loaded']:,} | {m['rejected']:,} | {m['waves']} | {m['cycles']} | {m['speedup4']:.2f}× |")
-for pr in ["modern", "legacy"]:
+for pr in SYN:
     for p in plans:
         m = R["synthetic"][pr]["migration"][p]
-        L.append(f"| Synthetic {pr} (mean of 5) | {p} | {m['Sq']:.3f} | {m['loaded']:,.0f} | {m['rejected']:,.0f} | {m['waves']:.1f} | {m['cycles']:.1f} | {m['speedup4']:.2f}× |")
+        L.append(f"| {pr} (mean of 5 seeds) | {p} | {m['Sq']:.3f} | {m['loaded']:,.0f} | {m['rejected']:,.0f} | {m['waves']:.1f} | {m['cycles']:.1f} | {m['speedup4']:.2f}× |")
 L.append("\nSynthetic data contains ~2% planted orphan rows (legacy data-quality defects); the oracle row shows that floor.")
-L += ["\n## Table 4. Scalability (synthetic legacy, proposed method)\n",
+L += ["\n## Table 4. Scalability (SynthLegacy, 50–2,000 tables, proposed method)\n",
       "| Tables | Columns | True deps | KG nodes | KG edges | Extract (s) | Detect (s) | Plan (s) | F1 | Speedup 4w | Speedup 8w |",
       "|---|---|---|---|---|---|---|---|---|---|---|"]
 for s in S:
