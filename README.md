@@ -128,8 +128,11 @@ scalability timings are the median of three repetitions.
 - Parallel speedup is a cost model (table cost = rows, LPT scheduling), not wall-clock time.
 - Single-column keys only; composite FKs are not inferred.
 - Primary keys are assumed declared; key inference is evaluated only in the stress test.
-- Two-phase loading of cyclic references requires nullable columns (all deferred columns in these
-  datasets are nullable); NOT NULL cyclic columns would need deferred constraint checking.
+- Two-phase loading inserts NULL into deferred (cyclic) reference columns in phase 1. The evaluation
+  target declares types, primary keys and the true foreign keys, but no NOT NULL constraints. In Sakila,
+  the two deferred columns (`store.manager_staff_id`, `staff.store_id`) are NOT NULL in the source; they
+  are NULL only between the phases and phase 2 restores every value. A target that keeps NOT NULL would
+  reject the phase-1 inserts and needs deferred constraint checking or NOT NULL added after loading.
 - Validation based on the recovered graph cannot detect broken references along dependencies it
   missed; an independent source-to-target audit is required for full coverage.
 
