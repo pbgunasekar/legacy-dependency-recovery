@@ -7,10 +7,20 @@ Naming styles for a referencing column (child -> parent key):
   opaque : no name signal                    (XREF_CD3, LINK_KEY_2)
 Noise columns (small-int codes, amounts, external refs) create value overlap.
 Profiles 'modern' and 'legacy' mix the styles differently.
+
+Stress options (all off by default; they draw from a separate random stream, so the
+default schemas are unchanged):
+  missing_pk_frac : share of tables whose primary key is not declared
+  null_rate       : share of reference values that are NULL
+  composite_frac  : extra parent tables with a two-column primary key, each referenced by
+                    two columns of some child tables (composite dependencies, out of scope
+                    for single-column detection and returned separately)
 """
 import random, sqlite3
 
 LAST_STYLES = {}
+LAST_COMPOSITE = set()   # composite dependencies: (child, (c1, c2), parent, (k1, k2))
+LAST_NO_PK = set()       # tables whose primary key is not declared
 
 WORDS = ["cust", "acct", "fund", "trade", "posn", "txn", "hold", "plan", "brkr", "agent",
          "addr", "pay", "fee", "div", "stmt", "tax", "lot", "secy", "branch", "rep",
@@ -29,9 +39,10 @@ def _abbrev(name, rnd):
 
 def generate(path, n_tables=50, profile="legacy", seed=0, rows=(20, 400),
              string_key_frac=0.5, orphan_rate=0.02, cycle_rate=0.03, self_rate=0.03,
-             noise_cols=3):
+             noise_cols=3, missing_pk_frac=0.0, null_rate=0.0, composite_frac=0.0):
     rnd = random.Random(seed)
-    LAST_STYLES.clear()
+    srnd = random.Random(seed * 7919 + 17)          # stress options only
+    LAST_STYLES.clear(); LAST_COMPOSITE.clear(); LAST_NO_PK.clear()
     mix = PROFILES[profile]
     styles = list(mix); weights = [mix[s] for s in styles]
     tables = []
@@ -71,8 +82,27 @@ def generate(path, n_tables=50, profile="legacy", seed=0, rows=(20, 400),
             _add_fk(ch, tables[pi], styles, weights, rnd)
         if rnd.random() < self_rate:
             ch["fks"].append((f"{rnd.choice(ROLES)}_{ch['key']}", ch, "self"))
+    # stress: composite-key parent tables and the children that reference them
+    comp = []
+    for j in range(int(round(composite_frac * n_tables))):
+        base = srnd.choice(WORDS)
+        nm = f"{base}_cmp{j}"
+        grp, line = f"{base}{j}_grp_no", f"{base}{j}_line_no"
+        pairs = [(g, l) for g in range(1, srnd.randint(10, 60)) for l in range(1, srnd.randint(2, 6))]
+        kids = srnd.sample(range(1, n_tables), min(n_tables - 1, srnd.randint(1, 3)))
+        comp.append({"name": nm, "grp": grp, "line": line, "pairs": pairs, "kids": kids})
+    comp_refs = {}
+    for c in comp:
+        for ci in c["kids"]:
+            comp_refs.setdefault(ci, []).append(c)
+    no_pk = set(srnd.sample(range(n_tables), int(round(missing_pk_frac * n_tables)))) if missing_pk_frac else set()
     conn = sqlite3.connect(path)
-    for t in tables:
+    for c in comp:
+        conn.execute(f'create table "{c["name"]}" ("{c["grp"]}" INTEGER, "{c["line"]}" INTEGER, '
+                     f'"descr" VARCHAR(20), primary key ("{c["grp"]}", "{c["line"]}"))')
+        conn.executemany(f'insert into "{c["name"]}" values (?,?,?)',
+                         [(g, l, f"D{g}-{l}") for g, l in c["pairs"]])
+    for ti_, t in enumerate(tables):
         cols = [(t["key"], "VARCHAR(10)" if t["str"] else "INTEGER")]
         names = {t["key"]}
         fkcols = []
@@ -85,6 +115,13 @@ def generate(path, n_tables=50, profile="legacy", seed=0, rows=(20, 400),
             fkcols.append((cname, p))
             truth.add((t["name"], cname, p["name"], p["key"]))
             LAST_STYLES[(t["name"], cname, p["name"], p["key"])] = st
+        crefs = []
+        for c in comp_refs.get(ti_, []):
+            pre = srnd.choice(ROLES)
+            c1, c2 = f"{pre}_{c['grp']}", f"{pre}_{c['line']}"
+            cols += [(c1, "INTEGER"), (c2, "INTEGER")]; names |= {c1, c2}
+            crefs.append(c)
+            LAST_COMPOSITE.add((t["name"], (c1, c2), c["name"], (c["grp"], c["line"])))
         noise = []
         for j in range(noise_cols):
             kind = rnd.choice(["status_cd", "qty", "amt", "ext_ref", "seq_nbr", "type_cd"])
@@ -92,9 +129,11 @@ def generate(path, n_tables=50, profile="legacy", seed=0, rows=(20, 400),
             names.add(cname)
             noise.append((cname, kind))
             cols.append((cname, "INTEGER" if kind != "amt" else "DECIMAL(12,2)"))
+        if ti_ in no_pk:
+            LAST_NO_PK.add(t["name"])
         conn.execute(f'create table "{t["name"]}" ('
                      + ",".join(f'"{c}" {ty}' for c, ty in cols)
-                     + f', primary key ("{t["key"]}"))')
+                     + ("" if ti_ in no_pk else f', primary key ("{t["key"]}")') + ")")
         rows_out = []
         for kid in t["ids"]:
             r = [kid]
@@ -105,6 +144,10 @@ def generate(path, n_tables=50, profile="legacy", seed=0, rows=(20, 400),
                     r.append(f"ZZ{rnd.randint(0, 10**7):08d}" if p["str"] else 10**6 + rnd.randint(0, 999))
                 else:
                     r.append(rnd.choice(p["ids"][: max(1, int(len(p["ids"]) * rnd.uniform(0.3, 1)))]))
+                if null_rate and p is not t and srnd.random() < null_rate:
+                    r[-1] = None
+            for c in crefs:
+                r += list(srnd.choice(c["pairs"]))
             for cname, kind in noise:
                 if kind in ("status_cd", "type_cd"):
                     r.append(rnd.randint(1, rnd.choice([3, 5, 9])))

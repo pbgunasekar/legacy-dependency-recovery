@@ -1,0 +1,22 @@
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llrrrrrrrr}
+\toprule
+ & & Deferred & & Loaded & Phase-2 & \multicolumn{3}{c}{Null-and-flag policy} & Strict \\
+\cmidrule(lr){7-9}
+Dataset & Plan & cols. & NOT NULL & (phase 1) & failures & Exact & Altered & Missing & exact \\
+\midrule
+Chinook & Proposed & 0.0 & 0 & 12,896 & 0 & 12,896 & 0 & 2,711 & 12,896 \\
+ & Oracle & 1.0 & 0 & 15,607 & 0 & 15,607 & 0 & 0 & 15,607 \\
+Northwind & Proposed & 0.0 & 0 & 556,422 & 0 & 556,422 & 0 & 69,468 & 556,422 \\
+ & Oracle & 1.0 & 0 & 625,890 & 0 & 625,890 & 0 & 0 & 625,890 \\
+Sakila & Proposed & 2.0 & 2 & 46,273 & 0 & 46,273 & 0 & 0 & 46,273 \\
+ & Oracle & 2.0 & 2 & 46,273 & 0 & 46,273 & 0 & 0 & 46,273 \\
+TPC-DS & Proposed & 5.0 & 0 & 2,596,789 & 0 & 2,596,789 & 0 & 0 & 2,596,789 \\
+ & Oracle & 0.0 & 0 & 2,596,789 & 0 & 2,596,789 & 0 & 0 & 2,596,789 \\
+SynthModern-100 & Proposed & 6.8 & 0 & 17,086 & 49 & 17,038 & 49 & 4,551 & 15,829 \\
+ & Oracle & 3.4 & 0 & 16,799 & 49 & 16,750 & 49 & 4,838 & 15,829 \\
+SynthLegacy-100 & Proposed & 5.6 & 0 & 12,897 & 207 & 12,690 & 207 & 8,740 & 11,907 \\
+ & Oracle & 5.8 & 0 & 17,030 & 64 & 16,965 & 64 & 4,608 & 14,468 \\
+\bottomrule
+\end{tabular}
+}
