@@ -233,7 +233,7 @@ for s, lbl in zip(snames, slabels):
     for m in SM_:
         dd = ST[s]["detection"].get(m)
         cells.append(f"{dd['F1']['mean']:.3f}" if dd else "--")
-    rows.append(lbl.replace("\n", " ") + " & " + " & ".join(cells) + " \\\\")
+    rows.append(lbl.replace("\n", " ").replace("%", "\\%") + " & " + " & ".join(cells) + " \\\\")   # escape % for LaTeX
 wr("tab_stress", resize("\\begin{tabular}{lcccccc}\n\\toprule\nCondition & Name-only & Data-only & Fixed fusion & Proposed & Classifier (partial) & Proposed + key inf. \\\\\n\\midrule\n"
                         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
 
@@ -365,7 +365,7 @@ nums += "".join([
 open(os.path.join(TEX, "numbers.tex"), "w").write(nums)
 
 # TPC-DS detections absent from the ground truth, with the semantic review
-rows = [f"\\texttt{{{a}.{b}}} & \\texttt{{{c}.{d}}} & {'reference' if (a, b) in PLAUSIBLE else 'coincidental'} \\\\"
+rows = [f"\\texttt{{{a}.{b}}} & \\texttt{{{c}.{d}}} & {'plausible reference' if (a, b) in PLAUSIBLE else 'coincidental'} \\\\"
         .replace("_", "\\_") for a, b, c, d in fps]
 wr("tab_tpcds_fp", resize("\\begin{tabular}{llc}\n\\toprule\nColumn & Detected target & Review \\\\\n\\midrule\n"
                           + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))

@@ -3,18 +3,18 @@
 \toprule
 Column & Detected target & Review \\
 \midrule
-\texttt{customer.c\_last\_review\_date\_sk} & \texttt{date\_dim.d\_date\_sk} & reference \\
-\texttt{date\_dim.d\_first\_dom} & \texttt{date\_dim.d\_date\_sk} & reference \\
-\texttt{date\_dim.d\_last\_dom} & \texttt{date\_dim.d\_date\_sk} & reference \\
-\texttt{date\_dim.d\_same\_day\_lq} & \texttt{date\_dim.d\_date\_sk} & reference \\
-\texttt{date\_dim.d\_same\_day\_ly} & \texttt{date\_dim.d\_date\_sk} & reference \\
+\texttt{customer.c\_last\_review\_date\_sk} & \texttt{date\_dim.d\_date\_sk} & plausible reference \\
+\texttt{date\_dim.d\_first\_dom} & \texttt{date\_dim.d\_date\_sk} & plausible reference \\
+\texttt{date\_dim.d\_last\_dom} & \texttt{date\_dim.d\_date\_sk} & plausible reference \\
+\texttt{date\_dim.d\_same\_day\_lq} & \texttt{date\_dim.d\_date\_sk} & plausible reference \\
+\texttt{date\_dim.d\_same\_day\_ly} & \texttt{date\_dim.d\_date\_sk} & plausible reference \\
 \texttt{income\_band.ib\_lower\_bound} & \texttt{customer\_demographics.cd\_demo\_sk} & coincidental \\
 \texttt{income\_band.ib\_upper\_bound} & \texttt{customer\_demographics.cd\_demo\_sk} & coincidental \\
 \texttt{store\_returns.sr\_ticket\_number} & \texttt{customer\_demographics.cd\_demo\_sk} & coincidental \\
 \texttt{store\_sales.ss\_ticket\_number} & \texttt{customer\_demographics.cd\_demo\_sk} & coincidental \\
 \texttt{time\_dim.t\_time} & \texttt{time\_dim.t\_time\_sk} & coincidental \\
 \texttt{warehouse.w\_warehouse\_sq\_ft} & \texttt{customer\_demographics.cd\_demo\_sk} & coincidental \\
-\texttt{web\_page.wp\_customer\_sk} & \texttt{customer.c\_customer\_sk} & reference \\
+\texttt{web\_page.wp\_customer\_sk} & \texttt{customer.c\_customer\_sk} & plausible reference \\
 \bottomrule
 \end{tabular}
 }
