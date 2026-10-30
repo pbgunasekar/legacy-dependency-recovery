@@ -57,7 +57,7 @@ Generated from results/results.json. Environment: Intel(R) Xeon(R) Processor @ 2
 
 ## Migration: initially loaded / exact (null-and-flag) / exact (strict) (share of source rows)
 
-| Dataset | No graph | Name-only graph | Proposed graph | Oracle |
+| Dataset | No graph | Name-only graph | Proposed graph | Ground-truth plan |
 |---|---|---|---|---|
 | Chinook | 2.1% / 2.1% / 2.1% | 82.6% / 82.6% / 82.6% | 82.6% / 82.6% / 82.6% | 100.0% / 100.0% / 100.0% |
 | Northwind | 0.0% / 0.0% / 0.0% | 88.9% / 88.9% / 88.9% | 88.9% / 88.9% / 88.9% | 100.0% / 100.0% / 100.0% |

@@ -36,7 +36,7 @@ SHORT = {"Name-only": "Name-only", "Data-only (IND)": "Data-only", "Fixed-weight
          "Proposed without adaptive rule": "-- adaptive rule", "Proposed without specificity": "-- specificity",
          "Proposed + key inference": "Proposed + key inference"}
 PLANS = ["No graph (alphabetical)", "Graph: Name-only", "Graph: Proposed", "Oracle (true dependencies)"]
-PLAN_LBL = ["No graph", "Name-only graph", "Proposed graph", "Oracle"]
+PLAN_LBL = ["No graph", "Name-only graph", "Proposed graph", "Ground-truth plan"]   # plan from the true dependencies
 
 def det(ds, m, k="F1"):
     """Detection metric; synthetic values are means (with sd available)."""
@@ -181,13 +181,13 @@ for d in DS:
     for p in PLANS:
         m = mig(d, p); cells.append(f"{pct(m['initially_loaded'] / m['source_rows'])} / {pct(m['exact'] / m['source_rows'])} / {pct(m['exact_strict'] / m['source_rows'])}")
     rows.append(f"{d} & " + " & ".join(cells) + " \\\\")
-wr("tab_migration", resize("\\begin{tabular}{lcccc}\n\\toprule\nDataset & No graph & Name-only graph & Proposed graph & Oracle \\\\\n\\midrule\n"
+wr("tab_migration", resize("\\begin{tabular}{lcccc}\n\\toprule\nDataset & No graph & Name-only graph & Proposed graph & Ground-truth plan \\\\\n\\midrule\n"
                            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
 
-# two-phase detail (proposed + oracle)
+# two-phase detail (proposed + ground-truth plan)
 rows = []
 for d in DS:
-    for p, lbl in (("Graph: Proposed", "Proposed"), ("Oracle (true dependencies)", "Oracle")):
+    for p, lbl in (("Graph: Proposed", "Proposed"), ("Oracle (true dependencies)", "Ground truth")):
         m = mig(d, p)
         rows.append(f"{d if lbl == 'Proposed' else ''} & {lbl} & {m['deferred_columns']:.1f} & {m['notnull_deferred_columns']:.0f} & "
                     f"{n0(m['initially_loaded'])} & {n0(m['phase2_failures'])} & {n0(m['exact'])} & {n0(m['altered'])} & {n0(m['missing'])} & {n0(m['exact_strict'])} \\\\")
@@ -243,8 +243,22 @@ for s in SC:
     dt = s["detect_s"]
     rows.append(f"{s['tables']:,} & {s['columns']:,} & {s['true_deps']:,} & {n0(s['type_compatible_pairs'])} & {n0(s['candidates_after_blocking'])} & "
                 f"{dt['median']:.2f} [{dt['min']:.2f}--{dt['max']:.2f}] & {s['plan_s']['median']:.3f} & {f3(s['F1'])} & {s['speedup4_model']:.2f} & {s['speedup8_model']:.2f} \\\\")
-wr("tab_scale", resize("\\begin{tabular}{rrrrrcccrr}\n\\toprule\nTables & Columns & Deps. & Pairs & Candidates & Detect (s) & Plan (s) & F1 & 4 workers & 8 workers \\\\\n\\midrule\n"
+wr("tab_scale", resize("\\begin{tabular}{rrrrrcccrr}\n\\toprule\n & & & & & & & & \\multicolumn{2}{c}{Modeled speedup} \\\\\n\\cmidrule(lr){9-10}\nTables & Columns & Deps. & Pairs & Candidates & Detect (s) & Plan (s) & F1 & 4 workers & 8 workers \\\\\n\\midrule\n"
                        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
+
+# migration-critical dependencies (results/critical.json, from src/critical.py)
+CR = json.load(open(os.path.join(ROOT, "results", "critical.json")))
+def crit(d, g):
+    return CR["public"][d][g] if d in CR["public"] else CR["synthetic"][d][g]
+rows = []
+for d in DS:
+    for g, lbl in (("Graph: Name-only", "Name-only"), ("Graph: Proposed", "Proposed")):
+        c, m = crit(d, g), mig(d, g)
+        num = (lambda x: f"{x:.1f}") if d in SYN else (lambda x: f"{x:.0f}")
+        rows.append(f"{d if lbl == 'Name-only' else ''} & {num(c['true']) if lbl == 'Name-only' else ''} & {lbl} & "
+                    f"{num(c['missed'])} & {num(c['critical'])} & {pct(m['exact'] / m['source_rows'])} \\\\")
+wr("tab_critical", resize("\\begin{tabular}{lrlrrr}\n\\toprule\n & True & & Missed & Migration-critical & Exact \\\\\nDataset & deps. & Graph & deps. & misses & migration \\\\\n\\midrule\n"
+                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"))
 
 # ------------------------------------------------------------------ numbers for the text
 E = R["environment"]; TP = R["public"]["TPC-DS"]; NW = R["public"]["Northwind"]
@@ -361,6 +375,15 @@ nums += "".join([
     cmd("legClfExactFoneB", f3(det("SynthLegacy-100", "Classifier (exact IND)"))),
     cmd("modClfExactFone", f3(det("SynthModern-100", "Classifier (exact IND)"))),
     cmd("sampSmallS", f"{sm['100']['secs']:.2f}"),
+    cmd("tpcMissedName", f"{crit('TPC-DS', 'Graph: Name-only')['missed']:.0f}"),
+    cmd("tpcCritName", f"{crit('TPC-DS', 'Graph: Name-only')['critical']:.0f}"),
+    cmd("tpcCritProposed", f"{crit('TPC-DS', 'Graph: Proposed')['critical']:.0f}"),
+    cmd("legMissedProposed", f"{crit('SynthLegacy-100', 'Graph: Proposed')['missed']:.1f}"),
+    cmd("legCritProposed", f"{crit('SynthLegacy-100', 'Graph: Proposed')['critical']:.1f}"),
+    cmd("legMissedName", f"{crit('SynthLegacy-100', 'Graph: Name-only')['missed']:.1f}"),
+    cmd("legCritName", f"{crit('SynthLegacy-100', 'Graph: Name-only')['critical']:.1f}"),
+    cmd("chCritProposed", f"{crit('Chinook', 'Graph: Proposed')['critical']:.0f}"),
+    cmd("chExactProposed", pct(mig('Chinook', 'Graph: Proposed')['exact'] / mig('Chinook', 'Graph: Proposed')['source_rows'])),
 ])
 open(os.path.join(TEX, "numbers.tex"), "w").write(nums)
 
