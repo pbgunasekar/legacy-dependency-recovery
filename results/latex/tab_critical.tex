@@ -1,0 +1,21 @@
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrlrrr}
+\toprule
+ & True & & Missed & Migration-critical & Exact \\
+Dataset & deps. & Graph & deps. & misses & migration \\
+\midrule
+Chinook & 11 & Name-only & 2 & 2 & 82.6\% \\
+ &  & Proposed & 2 & 2 & 82.6\% \\
+Northwind & 13 & Name-only & 2 & 1 & 88.9\% \\
+ &  & Proposed & 1 & 1 & 88.9\% \\
+Sakila & 22 & Name-only & 0 & 0 & 100.0\% \\
+ &  & Proposed & 0 & 0 & 100.0\% \\
+TPC-DS & 102 & Name-only & 85 & 9 & 83.3\% \\
+ &  & Proposed & 15 & 0 & 100.0\% \\
+SynthModern-100 & 145.8 & Name-only & 8.0 & 2.8 & 74.2\% \\
+ &  & Proposed & 0.0 & 0.0 & 78.7\% \\
+SynthLegacy-100 & 157.2 & Name-only & 57.4 & 26.8 & 38.1\% \\
+ &  & Proposed & 18.4 & 6.8 & 58.7\% \\
+\bottomrule
+\end{tabular}
+}

@@ -20,8 +20,23 @@ pip install -r requirements.txt
 python src/fetch_data.py        # Chinook, Northwind, Sakila: download + SHA-256 check
 python src/build_tpcds.py       # TPC-DS: build generator, generate SF1, verify, load (~2 min)
 python src/run_experiments.py   # ~40 min on 2 vCPUs; writes results/results.json (incl. hardware)
+python src/critical.py          # migration-critical analysis of missed dependencies (results/critical.json)
 python src/make_figures.py      # figures, LaTeX tables and results/tables.md, all from results.json
 ```
+
+Or run everything, including the tests and a comparison with the published results, with
+`./reproduce.sh`. Exact package versions are in `requirements-lock.txt`; the repository also opens
+in a ready-made GitHub Codespaces container (`.devcontainer/`).
+
+## Tests and verification
+
+- `pytest -q` runs unit tests (naming rules, data score, cycle deferral and load order), invariant
+  tests on Chinook (deterministic detection; every source row is exact, altered or missing; the
+  ground-truth plan loses no rows), and a check that `results/results.json` matches its recorded digest.
+- `python src/compare_results.py published.json results/results.json` compares a fresh run with the
+  published file, ignoring wall-clock timings. The published results were reproduced this way on a
+  second machine (GitHub Codespaces, AMD EPYC 7763) with zero non-timing differences.
+- `results/expected_digest.txt` holds the SHA-256 of the published results with timings removed.
 
 `python src/tune.py` re-derives `params.json` from the development seeds (optional).
 
